@@ -1,12 +1,27 @@
 package com.aditprayogo.bajp_subs1.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.aditprayogo.bajp_subs1.R
+import androidx.appcompat.app.AppCompatActivity
+import com.aditprayogo.bajp_subs1.databinding.ActivityMainBinding
+import com.aditprayogo.bajp_subs1.ui.pager.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
+
+    private val binding : ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+        setupViewAdapter()
+    }
+
+    private fun setupViewAdapter() {
+        val sectionAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        binding.viewPager.adapter = sectionAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
+        supportActionBar?.elevation = 0f
+
     }
 }
