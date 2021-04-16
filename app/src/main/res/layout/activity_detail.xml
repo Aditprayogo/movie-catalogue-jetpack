@@ -4,15 +4,217 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bluePrimary"
     tools:context=".ui.detail.DetailActivity">
 
     <ImageView
         android:id="@+id/imgDetailMovie"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:contentDescription="@string/image_detail_movie"
+        android:scaleType="centerCrop"
+        android:transitionName="@string/img_detail_movie_transition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="318dp"
+            android:background="@drawable/bg_card_detail"
+            android:paddingBottom="@dimen/dimens16"
+            android:paddingStart="@dimen/dimens16"
+            android:paddingEnd="@dimen/dimens16"
+            android:paddingTop="@dimen/dimens25">
+
+            <View
+                android:id="@+id/viewOverview"
+                android:layout_width="5dp"
+                android:layout_height="27dp"
+                android:background="@color/bluePrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens16"
+                android:text="@string/overview"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/viewOverview"
+                app:layout_constraintTop_toTopOf="@id/viewOverview"
+                app:layout_constraintBottom_toBottomOf="@id/viewOverview"
+                />
+
+            <TextView
+                android:id="@+id/txtOverview"
+                android:layout_width="0dp"
+                android:textSize="16sp"
+                tools:text="@string/text_overview"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens16"
+                app:layout_constraintTop_toBottomOf="@id/viewOverview"
+                app:layout_constraintStart_toStartOf="@id/viewOverview"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <View
+                android:id="@+id/viewInformation"
+                android:layout_width="5dp"
+                android:layout_height="27dp"
+                android:background="@color/bluePrimary"
+                android:layout_marginTop="@dimen/dimens16"
+                app:layout_constraintStart_toStartOf="@id/txtOverview"
+                app:layout_constraintTop_toBottomOf="@id/txtOverview"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens16"
+                android:text="@string/information"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/viewInformation"
+                app:layout_constraintTop_toTopOf="@id/viewInformation"
+                app:layout_constraintBottom_toBottomOf="@id/viewInformation"
+                />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens16"
+                app:layout_constraintTop_toBottomOf="@id/viewInformation"
+                app:layout_constraintStart_toStartOf="@id/viewInformation">
+
+                <!--   Genre   -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimens8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtTitleMovie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimens8"
+                        tools:text="@string/title_tools"
+                        />
+
+                </TableRow>
+
+                <!--   Genre   -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimens8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/genre"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtGenre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimens8"
+                        tools:text="@string/genre_tools"
+                        />
+
+                </TableRow>
+
+                <!--   Detail Of Release   -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimens8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_of_release"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtDateOfRelease"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimens8"
+                        tools:text="@string/date_of_release_tools"
+                        />
+
+                </TableRow>
+
+                <!--   Detail Of Release   -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimens8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtDuration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimens8"
+                        tools:text="@string/duration_tools"
+                        />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

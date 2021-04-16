@@ -1,11 +1,24 @@
 <resources>
     <string name="app_name">Moviez</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="imagemovie">imageMovie</string>
     <string name="title_date_of_release">Title Date Of Release</string>
     <string name="title_genre">Title Genre</string>
     <string name="title_movie">Title Movie</string>
     <string name="movieTitle">Movie</string>
     <string name="tvShowTitle">TvShow</string>
+    <string name="image_detail_movie">Image Detail Movie</string>
+    <string name="img_detail_movie_transition">imgDetailMovie</string>
+    <string name="overview">Overview</string>
+    <string name="text_overview">Text Overview</string>
+    <string name="information">Information</string>
+    <string name="genre">Genre :</string>
+    <string name="genre_tools">Genre</string>
+    <string name="date_of_release">Date Of Release :</string>
+    <string name="date_of_release_tools">Date Of Release</string>
+    <string name="duration">Duration :</string>
+    <string name="duration_tools">Duration</string>
+    <string name="title_tools">Title</string>
+    <string name="title">Title :</string>
+    <string name="created_by">Created by : Aditiya Prayogo</string>
 </resources>

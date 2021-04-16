@@ -22,7 +22,7 @@ class SectionsPagerAdapter(
         private val TAB_TITLE = intArrayOf(R.string.movieTitle, R.string.tvShowTitle)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return context.resources.getString(TAB_TITLE[position])
     }
 
