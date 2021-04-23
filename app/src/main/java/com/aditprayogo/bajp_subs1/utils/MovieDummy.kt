@@ -1,7 +1,7 @@
 package com.aditprayogo.bajp_subs1.utils
 
 import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.data.Movie
+import com.aditprayogo.bajp_subs1.data.local.Movie
 
 /**
  * Created by Aditiya Prayogo.

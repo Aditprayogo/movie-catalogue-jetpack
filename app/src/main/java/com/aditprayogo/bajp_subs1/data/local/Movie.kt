@@ -1,4 +1,4 @@
-package com.aditprayogo.bajp_subs1.data
+package com.aditprayogo.bajp_subs1.data.local
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

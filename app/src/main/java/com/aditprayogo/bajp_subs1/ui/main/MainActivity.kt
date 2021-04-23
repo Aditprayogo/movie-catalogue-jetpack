@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.aditprayogo.bajp_subs1.databinding.ActivityMainBinding
 import com.aditprayogo.bajp_subs1.ui.pager.SectionsPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding : ActivityMainBinding by lazy {

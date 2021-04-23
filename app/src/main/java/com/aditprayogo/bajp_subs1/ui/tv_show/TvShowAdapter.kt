@@ -9,7 +9,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.data.Movie
+import com.aditprayogo.bajp_subs1.data.local.Movie
 import com.aditprayogo.bajp_subs1.databinding.ItemRowMovieBinding
 import com.aditprayogo.bajp_subs1.ui.detail.DetailActivity
 import com.aditprayogo.bajp_subs1.utils.load

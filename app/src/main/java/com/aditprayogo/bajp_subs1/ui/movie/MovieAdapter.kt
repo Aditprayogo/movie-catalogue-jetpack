@@ -9,7 +9,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.data.Movie
+import com.aditprayogo.bajp_subs1.data.local.Movie
+import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.databinding.ItemRowMovieBinding
 import com.aditprayogo.bajp_subs1.ui.detail.DetailActivity
 import com.aditprayogo.bajp_subs1.utils.load
@@ -19,12 +20,12 @@ import com.aditprayogo.bajp_subs1.utils.load
  */
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private val listMovies: ArrayList<Movie> = ArrayList()
+    private var movieLists = mutableListOf<MovieResponses>()
 
-    fun setMoviesData(movies: List<Movie>?) {
+    fun setMoviesData(movies: MutableList<MovieResponses>?) {
         movies?.let {
-            this.listMovies.clear()
-            this.listMovies.addAll(movies)
+            this.movieLists = movies
+            notifyDataSetChanged()
         }
     }
 
@@ -35,19 +36,17 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(listMovies[position])
+        holder.bind(movieLists[position])
     }
 
-    override fun getItemCount(): Int = listMovies.size
+    override fun getItemCount(): Int = movieLists.size
 
     inner class MovieViewHolder(private val binding: ItemRowMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Movie) {
+        fun bind(data: MovieResponses) {
             with(binding) {
-                imgMovie.load(data.image)
                 txtTitle.text = data.title
-                txtDateOfRelease.text = data.dateOfRealese
-                txtGenre.text = data.genre
+                txtDateOfRelease.text = data.releaseDate
 
                 with(itemView) {
                     setOnClickListener {
@@ -62,14 +61,14 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                             imagePair
                         )
 
-                        context.startActivity(
-                            Intent(
-                                context, DetailActivity::class.java
-                            ).apply {
-                                putExtra(DetailActivity.EXTRA_MOVIE_ID, data.id)
-                            },
-                            options.toBundle()
-                        )
+//                        context.startActivity(
+//                            Intent(
+//                                context, DetailActivity::class.java
+//                            ).apply {
+//                                putExtra(DetailActivity.EXTRA_MOVIE_ID, data.id)
+//                            },
+//                            options.toBundle()
+//                        )
                     }
                 }
 

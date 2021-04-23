@@ -7,17 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.databinding.FragmentMovieBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
 
-    private val binding : FragmentMovieBinding by lazy {
+    private val binding: FragmentMovieBinding by lazy {
         FragmentMovieBinding.inflate(layoutInflater)
     }
 
-    private lateinit var movieAdapter: MovieAdapter
+    private val movieAdapter: MovieAdapter by lazy {
+        MovieAdapter()
+    }
 
-    private val movieViewModel : MovieViewModel by viewModels()
+    private val movieViewModel: MovieViewModel by viewModels()
+
+    private var movieLists = mutableListOf<MovieResponses>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,19 +36,32 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupData()
+        initObservers()
+        initRecyclerView()
     }
 
-    private fun setupData() {
-        val movies = movieViewModel.getDummyMovies()
-        movieAdapter = MovieAdapter()
-        movieAdapter.setMoviesData(movies)
-
-        with(binding.rvMovie) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
+    private fun initRecyclerView() {
+        binding.rvMovie.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = movieAdapter
         }
     }
+
+    private fun initObservers() {
+        with(movieViewModel) {
+            discoverMovie.observe(viewLifecycleOwner, {
+                handleResultDiscoverMovie(it)
+            })
+        }
+    }
+
+    private fun handleResultDiscoverMovie(movie: List<MovieResponses>?) {
+        movie?.let {
+            movieLists.clear()
+            movieLists.addAll(movie)
+            movieAdapter.setMoviesData(movieLists)
+        }
+    }
+
 
 }
