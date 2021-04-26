@@ -2,6 +2,7 @@ package com.aditprayogo.bajp_subs1.utils
 
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
+import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowResponses
 
 /**
@@ -9,7 +10,7 @@ import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowResponses
  */
 object DataDummyTemp {
 
-    val discoverResponses = MovieDiscoverResponses(
+    val discoverMovieResponses = MovieDiscoverResponses(
         page = 1,
         listOf(
             MovieResponses(
@@ -18,6 +19,34 @@ object DataDummyTemp {
                 voteAverage = 0.0,
                 releaseDate = "releaseDate",
                 overview = "overView",
+                backdropPath = "backdropPath"
+            ),
+            MovieResponses(
+                id = 2,
+                title = "movieTitle",
+                voteAverage = 0.0,
+                releaseDate = "releaseDate",
+                overview = "overView",
+                backdropPath = "backdropPath"
+            ),
+        )
+    )
+
+    val discoverTvShowResponses = TvShowDiscoverResponses(
+        page = 1,
+        listOf(
+            TvShowResponses(
+                id = 1,
+                name = "tvShowTitle",
+                voteAverage = 0.0,
+                firstAirDate = "releaseDate",
+                backdropPath = "backdropPath"
+            ),
+            TvShowResponses(
+                id = 2,
+                name = "tvShowTitle",
+                voteAverage = 0.0,
+                firstAirDate = "releaseDate",
                 backdropPath = "backdropPath"
             ),
         )

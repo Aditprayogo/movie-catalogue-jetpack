@@ -39,7 +39,7 @@ class MovieViewModelTest {
     val instantTaskExecutor = InstantTaskExecutorRule()
 
     @Mock
-    lateinit var listMovieResponse: Observer<List<MovieResponses>>
+    lateinit var listMovieResponses: Observer<List<MovieResponses>>
 
     @Mock
     lateinit var error: Observer<String>
@@ -55,8 +55,7 @@ class MovieViewModelTest {
         MockitoAnnotations.initMocks(this)
 
         movieViewModel = MovieViewModel(movieUseCase)
-        movieViewModel.discoverMovie.observeForever(listMovieResponse)
-        movieViewModel.error.observeForever(error)
+        movieViewModel.resultDiscoverMovieFromApi.observeForever(listMovieResponses)
     }
 
     @After
@@ -68,18 +67,18 @@ class MovieViewModelTest {
     @Test
     fun `get discover movie and return success`() {
         runBlockingTest {
-            val result = ResultState.Success(DataDummyTemp.discoverResponses)
+            val result = ResultState.Success(DataDummyTemp.discoverMovieResponses)
 
             `when`(movieUseCase.getDiscoverMovie())
                 .thenReturn(result)
 
             movieViewModel.getDiscoverMovie()
 
-            verify(listMovieResponse, atLeastOnce()).onChanged(resultCaptor.capture())
+            verify(listMovieResponses, atLeastOnce()).onChanged(resultCaptor.capture())
 
             assertThat(result.data.movieResponses).isEqualTo(resultCaptor.allValues.first())
 
-            clearInvocations(movieUseCase, listMovieResponse)
+            clearInvocations(movieUseCase, listMovieResponses)
         }
     }
 }

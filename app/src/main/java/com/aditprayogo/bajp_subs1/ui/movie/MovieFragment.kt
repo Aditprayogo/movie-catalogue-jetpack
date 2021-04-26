@@ -56,7 +56,7 @@ class MovieFragment : Fragment() {
             state.observe(viewLifecycleOwner, {
                 handleStateLoading(it)
             })
-            discoverMovie.observe(viewLifecycleOwner, {
+            resultDiscoverMovieFromApi.observe(viewLifecycleOwner, {
                 handleResultDiscoverMovie(it)
             })
             networkError.observe(viewLifecycleOwner, {

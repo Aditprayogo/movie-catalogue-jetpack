@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.ui.tv_show
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,8 +43,8 @@ class TvShowViewModel @Inject constructor(
     /**
      * Result from tv shows
      */
-    private val _resultTvShowsFromApi = MutableLiveData<List<TvShowResponses>?>()
-    val resultTvShowFromApi : LiveData<List<TvShowResponses>?> = _resultTvShowsFromApi
+    private val _resultTvShowsFromApi = MutableLiveData<List<TvShowResponses>>()
+    val resultTvShowFromApi : LiveData<List<TvShowResponses>> = _resultTvShowsFromApi
 
     init {
         getTvShowResultsFromApi()
@@ -55,7 +56,7 @@ class TvShowViewModel @Inject constructor(
             val result = tvShowUseCase.getDiscoverTvShows()
             _state.value = LoaderState.HideLoading
             when(result) {
-                is ResultState.Success -> _resultTvShowsFromApi.postValue(result.data?.tvShowResponses)
+                is ResultState.Success -> _resultTvShowsFromApi.postValue(result.data.tvShowResponses)
                 is ResultState.Error -> _error.postValue(result.error)
                 is ResultState.NetworkError -> _networkError.postValue(true)
             }

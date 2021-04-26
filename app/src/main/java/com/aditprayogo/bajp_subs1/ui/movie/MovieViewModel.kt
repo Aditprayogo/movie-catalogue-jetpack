@@ -30,7 +30,7 @@ class MovieViewModel @Inject constructor(
     /**
      * Error request
      */
-    private val _error = MutableLiveData<String>()
+    private val _error = MutableLiveData<String?>()
     val error = _error
 
     /**
@@ -42,8 +42,8 @@ class MovieViewModel @Inject constructor(
     /**
      * Discover movie Result
      */
-    private val _discoverMovie = MutableLiveData<List<MovieResponses>>()
-    val discoverMovie = _discoverMovie
+    private val _resultDiscoverMovieFromApi = MutableLiveData<List<MovieResponses>>()
+    val resultDiscoverMovieFromApi = _resultDiscoverMovieFromApi
 
     init {
         getDiscoverMovie()
@@ -52,14 +52,13 @@ class MovieViewModel @Inject constructor(
     /**
      * get discover movie
      */
-    @SuppressLint("NullSafeMutableLiveData")
     fun getDiscoverMovie() {
         _state.value = LoaderState.ShowLoading
         viewModelScope.launch {
             val result = movieUseCase.getDiscoverMovie()
             _state.value = LoaderState.HideLoading
             when (result) {
-                is ResultState.Success -> _discoverMovie.postValue(result.data?.movieResponses)
+                is ResultState.Success -> _resultDiscoverMovieFromApi.postValue(result.data.movieResponses)
                 is ResultState.Error -> _error.postValue(result.error)
                 is ResultState.NetworkError -> _networkError.postValue(true)
             }
