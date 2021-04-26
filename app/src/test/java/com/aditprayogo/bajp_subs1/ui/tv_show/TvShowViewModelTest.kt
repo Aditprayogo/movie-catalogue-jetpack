@@ -9,6 +9,4 @@ import org.junit.Test
  */
 class TvShowViewModelTest {
 
-
-
 }
