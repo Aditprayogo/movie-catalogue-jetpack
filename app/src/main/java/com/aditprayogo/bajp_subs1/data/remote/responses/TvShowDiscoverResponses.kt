@@ -8,8 +8,4 @@ data class TvShowDiscoverResponses(
     val page: Int?,
     @SerializedName("results")
     val tvShowResponses: List<TvShowResponses>?,
-    @SerializedName("total_pages")
-    val totalPages: Int?,
-    @SerializedName("total_results")
-    val totalResults: Int?
 )

@@ -45,6 +45,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieResponses) {
             with(binding) {
+
+                imgMovie.load(data.getPosterMovieImage())
+                rattingBar.rating = (data.voteAverage?.toFloat()?.div(2)) ?: 0f
+                txtRattingBar.text = data.voteAverage?.toString()
                 txtTitle.text = data.title
                 txtDateOfRelease.text = data.releaseDate
 
@@ -61,14 +65,14 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                             imagePair
                         )
 
-//                        context.startActivity(
-//                            Intent(
-//                                context, DetailActivity::class.java
-//                            ).apply {
-//                                putExtra(DetailActivity.EXTRA_MOVIE_ID, data.id)
-//                            },
-//                            options.toBundle()
-//                        )
+                        context.startActivity(
+                            Intent(
+                                context, DetailActivity::class.java
+                            ).apply {
+                                putExtra(DetailActivity.EXTRA_MOVIE_ID, data.id)
+                            },
+                            options.toBundle()
+                        )
                     }
                 }
 

@@ -21,7 +21,7 @@ suspend fun <T : Any> safeApiCall(apiCall: suspend () -> ResultState<T>): Result
                 return ResultState.Error(errorResponse, code)
             }
             is ConnectException -> ResultState.NetworkError
-            else -> ResultState.Error(null, 500)
+            else -> ResultState.Error("Internal Server Error", 500)
         }
     }
 }

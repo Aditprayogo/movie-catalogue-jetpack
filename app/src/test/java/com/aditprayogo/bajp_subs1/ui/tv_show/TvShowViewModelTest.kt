@@ -9,19 +9,6 @@ import org.junit.Test
  */
 class TvShowViewModelTest {
 
-    private lateinit var viewModel: TvShowViewModel
 
-    @Before
-    fun setup() {
-        viewModel = TvShowViewModel()
-    }
-
-    @Test
-    fun `get all tv show data and returns success`() {
-        val tvShows = viewModel.getTvShow()
-
-        assertThat(tvShows).isNotNull()
-        assertThat(tvShows.size).isEqualTo(10)
-    }
 
 }

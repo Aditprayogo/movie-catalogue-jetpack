@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/dimens16"
@@ -29,6 +28,7 @@
                 android:id="@+id/imgMovie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorShimmer"
                 android:contentDescription="@string/imagemovie"
                 android:transitionName="@string/img_detail_movie_transition"
                 android:scaleType="centerCrop" />
@@ -45,36 +45,33 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/black"
+            android:background="@drawable/bg_shimmer_text"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardImage"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/title_movie" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <RatingBar
-            android:id="@+id/rattingBar"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/bgTextRattingBar"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:progressTint="@color/bluePrimary"
             android:layout_marginTop="@dimen/dimens16"
-            style="?android:attr/ratingBarStyleSmall"
+            android:background="@drawable/bg_shimmer_text"
             android:layout_marginEnd="@dimen/dimens8"
-            android:numStars="5"
-            android:isIndicator="true"
             app:layout_constraintStart_toStartOf="@id/txtTitle"
             app:layout_constraintTop_toBottomOf="@id/txtTitle"
             />
 
         <TextView
             android:id="@+id/txtRattingBar"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimens16"
             android:layout_marginStart="@dimen/dimens8"
-            app:layout_constraintStart_toEndOf="@id/rattingBar"
+            android:background="@drawable/bg_shimmer_text"
+            app:layout_constraintStart_toEndOf="@id/bgTextRattingBar"
             app:layout_constraintTop_toBottomOf="@id/txtTitle"
             android:textColor="@color/black"
-            tools:text="@string/ratting"
             />
 
         <TextView
@@ -82,14 +79,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimens16"
+            android:background="@drawable/bg_shimmer_text"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/txtTitle"
-            app:layout_constraintStart_toStartOf="@id/rattingBar"
-            app:layout_constraintTop_toBottomOf="@id/rattingBar"
-            tools:text="@string/title_date_of_release" />
+            app:layout_constraintStart_toStartOf="@id/bgTextRattingBar"
+            app:layout_constraintTop_toBottomOf="@id/bgTextRattingBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

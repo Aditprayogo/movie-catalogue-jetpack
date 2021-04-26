@@ -37,6 +37,7 @@ object RetrofitMovieConfig {
             original = original.newBuilder().url(url).addHeader("Accept", "application/json").build()
             chain.proceed(original)
         }
+        .addNetworkInterceptor(loggingInterceptor())
         .pingInterval(30, TimeUnit.SECONDS)
         .readTimeout(1, TimeUnit.MINUTES)
         .connectTimeout(1, TimeUnit.MINUTES)

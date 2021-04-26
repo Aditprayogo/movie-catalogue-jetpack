@@ -10,6 +10,7 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.aditprayogo.bajp_subs1.R
 import com.aditprayogo.bajp_subs1.data.local.Movie
+import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowResponses
 import com.aditprayogo.bajp_subs1.databinding.ItemRowMovieBinding
 import com.aditprayogo.bajp_subs1.ui.detail.DetailActivity
 import com.aditprayogo.bajp_subs1.utils.load
@@ -19,12 +20,12 @@ import com.aditprayogo.bajp_subs1.utils.load
  */
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
-    private val listTvShow: ArrayList<Movie> = arrayListOf()
+    private var listTvShow: MutableList<TvShowResponses> = mutableListOf()
 
-    fun setTvShowsData(tvShow: List<Movie>?) {
-        tvShow?.let {
-            this.listTvShow.clear()
-            this.listTvShow.addAll(tvShow)
+    fun setTvShowsData(tvShow: MutableList<TvShowResponses>) {
+        tvShow.let {
+            this.listTvShow = tvShow
+            notifyDataSetChanged()
         }
     }
 
@@ -38,19 +39,22 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TvShowAdapter.TvShowViewHolder, position: Int) {
-        holder.bind(listTvShow[position])
+        listTvShow[position]?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int = listTvShow.size
 
     inner class TvShowViewHolder(private val binding: ItemRowMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Movie) {
+
+        fun bind(data: TvShowResponses) {
             with(binding) {
-                imgMovie.load(data.image)
-                txtTitle.text = data.title
-                txtGenre.text = data.genre
-                txtDateOfRelease.text = data.dateOfRealese
+
+                imgMovie.load(data.getImagePoster())
+                rattingBar.rating = (data.voteAverage?.toFloat()?.div(2)) ?: 0f
+                txtRattingBar.text = data.voteAverage?.toString()
+                txtTitle.text = data.name
+                txtDateOfRelease.text = data.firstAirDate
 
                 with(itemView) {
                     setOnClickListener {

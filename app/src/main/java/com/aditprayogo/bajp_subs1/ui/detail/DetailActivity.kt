@@ -20,43 +20,17 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupData()
     }
 
-    private fun setupData() {
-        val extras = intent.extras
-
-        supportActionBar?.apply {
-            elevation = 0f
-            setDisplayHomeAsUpEnabled(true)
-        }
-
-        extras?.let {
-            val movieData = it.getString(EXTRA_MOVIE_ID)
-            movieData?.let {
-                detailViewModel.setSelectedMovie(movieData)
-                populateMovie(detailViewModel.getMovies())
-            }
-        }
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
 
-    private fun populateMovie(movie: Movie) {
-        with(binding) {
-            imgDetailMovie.load(movie.image)
-            txtOverview.text = movie.overview
-            txtGenre.text = movie.genre
-            txtDateOfRelease.text = movie.dateOfRealese
-            txtDuration.text = movie.duration
-            txtTitleMovie.text = movie.title
-        }
-    }
 
     companion object {
         const val EXTRA_MOVIE_ID = "extra_movie_id"
+        const val EXTRA_TV_SHOW_ID = "extra_movie_id"
     }
 }

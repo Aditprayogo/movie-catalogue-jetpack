@@ -1,12 +1,14 @@
 package com.aditprayogo.bajp_subs1.ui.movie
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aditprayogo.bajp_subs1.core.state.LoaderState
 import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
-import com.aditprayogo.bajp_subs1.domain.MovieUseCase
+import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +30,7 @@ class MovieViewModel @Inject constructor(
     /**
      * Error request
      */
-    private val _error = MutableLiveData<String?>()
+    private val _error = MutableLiveData<String>()
     val error = _error
 
     /**
@@ -40,7 +42,7 @@ class MovieViewModel @Inject constructor(
     /**
      * Discover movie Result
      */
-    private val _discoverMovie = MutableLiveData<List<MovieResponses>?>()
+    private val _discoverMovie = MutableLiveData<List<MovieResponses>>()
     val discoverMovie = _discoverMovie
 
     init {
@@ -50,13 +52,12 @@ class MovieViewModel @Inject constructor(
     /**
      * get discover movie
      */
+    @SuppressLint("NullSafeMutableLiveData")
     fun getDiscoverMovie() {
         _state.value = LoaderState.ShowLoading
-
         viewModelScope.launch {
             val result = movieUseCase.getDiscoverMovie()
             _state.value = LoaderState.HideLoading
-
             when (result) {
                 is ResultState.Success -> _discoverMovie.postValue(result.data?.movieResponses)
                 is ResultState.Error -> _error.postValue(result.error)

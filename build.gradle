@@ -2,6 +2,7 @@
 buildscript {
     ext.kotlin_version = "1.4.21"
     ext.hilt_version = '2.33-beta'
+    ext.shimmer_version = "0.5.0"
     repositories {
         google()
         jcenter()
@@ -25,6 +26,9 @@ ext {
     retrofit_version = '2.9.0'
     coroutine_version = '1.4.3'
     coroutine_adapter_version = '0.9.2'
+    mockitoKotlinVersion = '2.2.0'
+    mockitoVersion = '3.6.0'
+    androidCoreTestVersion = '2.1.0'
     logging_version = '3.11.0'
 
     glide_version = "4.11.0"
