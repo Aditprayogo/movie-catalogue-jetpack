@@ -10,10 +10,8 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.clearInvocations
 import com.nhaarman.mockitokotlin2.verify
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
@@ -38,17 +36,17 @@ class TvShowViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Mock
     lateinit var listTvShowResponses: Observer<List<TvShowResponses>>
 
     @Captor
     lateinit var resultCaptor: ArgumentCaptor<List<TvShowResponses>>
 
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
     @Before
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.initMocks(this)
 
         tvShowViewModel = TvShowViewModel(tvShowUseCase)
@@ -58,25 +56,25 @@ class TvShowViewModelTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
+        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
-    fun `get discover tv shows and return success`() {
-        runBlockingTest {
-            val result = ResultState.Success(DataDummyTemp.discoverTvShowResponses)
+    fun `get discover tv shows and return success`() = runBlockingTest {
 
-            `when`(tvShowUseCase.getDiscoverTvShows())
-                .thenReturn(result)
+        val result = ResultState.Success(DataDummyTemp.discoverTvShowResponses)
 
-            tvShowViewModel.getTvShowResultsFromApi()
+        `when`(tvShowUseCase.getDiscoverTvShows())
+            .thenReturn(result)
 
-            verify(listTvShowResponses, atLeastOnce()).onChanged(resultCaptor.capture())
+        tvShowViewModel.getTvShowResultsFromApi()
 
-            assertThat(result.data.tvShowResponses).isEqualTo(resultCaptor.allValues.first())
+        verify(listTvShowResponses, atLeastOnce()).onChanged(resultCaptor.capture())
 
-            clearInvocations(tvShowUseCase, listTvShowResponses)
-        }
+        assertThat(result.data.tvShowResponses).isEqualTo(resultCaptor.allValues.first())
+
+        clearInvocations(tvShowUseCase, listTvShowResponses)
+
     }
 
 }

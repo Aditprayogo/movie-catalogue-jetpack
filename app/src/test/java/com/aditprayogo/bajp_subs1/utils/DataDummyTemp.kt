@@ -1,9 +1,6 @@
 package com.aditprayogo.bajp_subs1.utils
 
-import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
-import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
-import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
-import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowResponses
+import com.aditprayogo.bajp_subs1.data.remote.responses.*
 
 /**
  * Created by Aditiya Prayogo.
@@ -52,7 +49,7 @@ object DataDummyTemp {
         )
     )
 
-    fun generateMovieTemp() : List<MovieResponses> {
+    fun generateMovieTemp(): List<MovieResponses> {
         return listOf(
             MovieResponses(
                 id = 1,
@@ -81,7 +78,7 @@ object DataDummyTemp {
         )
     }
 
-    fun generateTvShowsTemp() : List<TvShowResponses> {
+    fun generateTvShowsTemp(): List<TvShowResponses> {
         return listOf(
             TvShowResponses(
                 id = 1,
@@ -106,4 +103,34 @@ object DataDummyTemp {
             ),
         )
     }
+
+    val detailMovie = MovieDetailResponse(
+        id = 1,
+        genres = listOf(
+            Genre(id = 1, name = "genre1"),
+            Genre(id = 2, name = "genre2"),
+        ),
+        overview = "overview",
+        posterPath = "posterPath",
+        releaseDate = "releaseDate",
+        status = "status",
+        title = "Title",
+        voteAverage = 0.0
+
+    )
+
+    val detailTvShow = TvShowDetailResponse(
+        id = 1,
+        genres = listOf(
+            GenreX(id = 1, name = "genre1"),
+            GenreX(id = 2, name = "genre2"),
+        ),
+        overview = "overview",
+        posterPath = "posterPath",
+        firstAirDate = "firstAirDate",
+        status = "status",
+        name = "name",
+        voteAverage = 0.0
+
+    )
 }

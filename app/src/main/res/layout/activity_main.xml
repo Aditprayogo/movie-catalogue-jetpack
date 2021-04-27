@@ -9,26 +9,35 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="false">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:tabBackground="@drawable/tab_layout_selector"
-            app:tabIndicatorColor="@color/white"
-            app:tabSelectedTextColor="@color/bluePrimary"
-            app:tabTextColor="@color/white" />
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp"
+            android:layout_margin="@dimen/dimens8"
+            app:cardCornerRadius="@dimen/dimens16">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tabBackground="@drawable/tab_layout_selector"
+                app:tabIndicatorColor="@color/bluePrimary"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/bluePrimary" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.MainActivity"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:context=".ui.main.MainActivity">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

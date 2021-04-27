@@ -8,10 +8,8 @@ import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
@@ -38,6 +36,8 @@ class MovieViewModelTest {
     @get:Rule
     val instantTaskExecutor = InstantTaskExecutorRule()
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Mock
     lateinit var listMovieResponses: Observer<List<MovieResponses>>
 
@@ -47,11 +47,9 @@ class MovieViewModelTest {
     @Captor
     lateinit var resultCaptor: ArgumentCaptor<List<MovieResponses>>
 
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
     @Before
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.initMocks(this)
 
         movieViewModel = MovieViewModel(movieUseCase)
@@ -61,24 +59,24 @@ class MovieViewModelTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
+        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
-    fun `get discover movie and return success`() {
-        runBlockingTest {
-            val result = ResultState.Success(DataDummyTemp.discoverMovieResponses)
+    fun `get discover movie and return success`() = runBlockingTest {
 
-            `when`(movieUseCase.getDiscoverMovie())
-                .thenReturn(result)
+        val result = ResultState.Success(DataDummyTemp.discoverMovieResponses)
 
-            movieViewModel.getDiscoverMovie()
+        `when`(movieUseCase.getDiscoverMovie())
+            .thenReturn(result)
 
-            verify(listMovieResponses, atLeastOnce()).onChanged(resultCaptor.capture())
+        movieViewModel.getDiscoverMovie()
 
-            assertThat(result.data.movieResponses).isEqualTo(resultCaptor.allValues.first())
+        verify(listMovieResponses, atLeastOnce()).onChanged(resultCaptor.capture())
 
-            clearInvocations(movieUseCase, listMovieResponses)
-        }
+        assertThat(result.data.movieResponses).isEqualTo(resultCaptor.allValues.first())
+
+        clearInvocations(movieUseCase, listMovieResponses)
+
     }
 }

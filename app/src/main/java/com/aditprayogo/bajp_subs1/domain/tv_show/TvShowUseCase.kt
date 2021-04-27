@@ -20,8 +20,6 @@ class TvShowUseCase @Inject constructor(private val tvShowRepository: TvShowRepo
                 ResultState.Success(response.body()!!)
             } catch (e: Exception) {
                 ResultState.Error(e.localizedMessage, response.code())
-            } finally {
-                // do iddling resource
             }
         }
     }

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.movie.MovieFragment"
-    android:padding="@dimen/dimens8">
+    android:padding="@dimen/dimens8"
+    tools:context=".ui.movie.MovieFragment">
 
     <include
         android:id="@+id/baseLoadingShimmer"
@@ -26,10 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_row_movie"/>
-
-
-
+        tools:listitem="@layout/item_row_movie" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

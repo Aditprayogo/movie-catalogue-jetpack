@@ -58,24 +58,13 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
                 with(itemView) {
                     setOnClickListener {
-
-                        val imagePair = Pair.create<View, String>(
-                            imgMovie,
-                            context.getString(R.string.img_detail_movie_transition)
-                        )
-
-                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            context as Activity,
-                            imagePair
-                        )
-
                         context.startActivity(
                             Intent(
                                 context, DetailActivity::class.java
                             ).apply {
-                                putExtra(DetailActivity.EXTRA_MOVIE_ID, data.id)
+                                putExtra(DetailActivity.EXTRA_TV_SHOW_ID, data.id.toString())
+                                putExtra(DetailActivity.TYPE, context.getString(R.string.tvShowType))
                             },
-                            options.toBundle()
                         )
                     }
                 }

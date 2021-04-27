@@ -1,38 +1,89 @@
 package com.aditprayogo.bajp_subs1.ui.detail
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.aditprayogo.bajp_subs1.data.local.Movie
-import com.aditprayogo.bajp_subs1.utils.MovieDummy
+import androidx.lifecycle.viewModelScope
+import com.aditprayogo.bajp_subs1.core.state.LoaderState
+import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
+import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
+import com.aditprayogo.bajp_subs1.domain.detail.DetailUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Aditiya Prayogo.
  */
-class DetailViewModel : ViewModel() {
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val detailUseCase: DetailUseCase
+): ViewModel() {
 
-    private lateinit var movieId: String
+    /**
+     * Loader State
+     */
+    private val _state = MutableLiveData<LoaderState>()
+    val state = _state
 
-    fun setSelectedMovie(movieId: String) {
-        this.movieId = movieId
-    }
+    /**
+     * Error request
+     */
+    private val _error = MutableLiveData<String?>()
+    val error = _error
 
-    fun getMovies() : Movie {
-        lateinit var movieEntity : Movie
+    /**
+     * Network Error
+     */
+    private val _networkError = MutableLiveData<Boolean>()
+    val networkError = _networkError
 
-        val movieTempEntity : MutableList<Movie> = mutableListOf()
+    /**
+     * movie detail result
+     */
+    private val _movieDetailResultFromApi = MutableLiveData<MovieDetailResponse>()
+    val movieDetailResultFromApi = _movieDetailResultFromApi
 
-        val movieEntities = MovieDummy.getMovies()
-        val tvShowsEntites = MovieDummy.getTvShow()
+    /**
+     * tv show  detail result
+     */
+    private val _tvShowDetailResultFromApi = MutableLiveData<TvShowDetailResponse>()
+    val tvShowDetailResultFromApi = _tvShowDetailResultFromApi
 
-        movieTempEntity.addAll(movieEntities)
-        movieTempEntity.addAll(tvShowsEntites)
+    /**
+     * get movie detail
+     */
+    fun getMovieDetailResult(id : String) {
+        _state.value = LoaderState.ShowLoading
 
-        for (movie in movieTempEntity) {
-            if (movie.id == movieId) {
-                movieEntity = movie
+        viewModelScope.launch {
+            val result = detailUseCase.getDetailMovie(id)
+            _state.value = LoaderState.HideLoading
+
+            when(result) {
+                is ResultState.Success -> _movieDetailResultFromApi.postValue(result.data)
+                is ResultState.Error -> _error.postValue(result.error)
+                is ResultState.NetworkError -> _networkError.postValue(true)
             }
         }
+    }
 
-        return movieEntity
+    /**
+     * get tv show detail
+     */
+    fun getTvShowDetailResult(id : String) {
+        _state.value = LoaderState.ShowLoading
+
+        viewModelScope.launch {
+            val result = detailUseCase.getDetailTvShow(id)
+            _state.value = LoaderState.HideLoading
+
+            when(result) {
+                is ResultState.Success -> _tvShowDetailResultFromApi.postValue(result.data)
+                is ResultState.Error -> _error.postValue(result.error)
+                is ResultState.NetworkError -> _networkError.postValue(true)
+            }
+        }
     }
 
 }

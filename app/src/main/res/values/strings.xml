@@ -14,7 +14,7 @@
     <string name="information">Information</string>
     <string name="genre">Genre :</string>
     <string name="genre_tools">Genre</string>
-    <string name="date_of_release">Date Of Release :</string>
+    <string name="date_of_release">Release Date :</string>
     <string name="date_of_release_tools">Date Of Release</string>
     <string name="duration">Duration :</string>
     <string name="duration_tools">Duration</string>
@@ -22,4 +22,8 @@
     <string name="title">Title :</string>
     <string name="created_by">Created by : Aditiya Prayogo</string>
     <string name="ratting">Ratting</string>
+    <string name="tvShowType">tvShow</string>
+    <string name="movieType">movie</string>
+    <string name="asd">TVSHOW</string>
+    <string name="genreList">Genre</string>
 </resources>

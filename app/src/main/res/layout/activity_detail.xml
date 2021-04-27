@@ -82,78 +82,25 @@
                 />
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimens16"
                 android:text="@string/information"
-                android:textSize="18sp"
                 android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/viewInformation"
-                app:layout_constraintTop_toTopOf="@id/viewInformation"
                 app:layout_constraintBottom_toBottomOf="@id/viewInformation"
-                />
+                app:layout_constraintStart_toEndOf="@id/viewInformation"
+                app:layout_constraintTop_toTopOf="@id/viewInformation" />
 
             <TableLayout
+                android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimens16"
                 app:layout_constraintTop_toBottomOf="@id/viewInformation"
                 app:layout_constraintStart_toStartOf="@id/viewInformation">
-
-                <!--   Genre   -->
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimens8">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        />
-
-                    <TextView
-                        android:id="@+id/txtTitleMovie"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/dimens8"
-                        tools:text="@string/title_tools"
-                        />
-
-                </TableRow>
-
-                <!--   Genre   -->
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimens8">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/genre"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        />
-
-                    <TextView
-                        android:id="@+id/txtGenre"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/dimens8"
-                        tools:text="@string/genre_tools"
-                        />
-
-                </TableRow>
 
                 <!--   Detail Of Release   -->
                 <TableRow
@@ -182,7 +129,7 @@
 
                 </TableRow>
 
-                <!--   Detail Of Release   -->
+                <!--   Ratting   -->
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -191,25 +138,60 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/duration"
+                        android:text="Ratting :"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         />
 
-                    <TextView
-                        android:id="@+id/txtDuration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_weight="1"
+                    <RatingBar
                         android:layout_marginStart="@dimen/dimens8"
-                        tools:text="@string/duration_tools"
+                        android:id="@+id/rattingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:progressTint="@color/bluePrimary"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:numStars="5"
+                        android:layout_marginEnd="@dimen/dimens16"
+                        android:isIndicator="true"
+                        app:layout_constraintStart_toStartOf="@id/txtTitle"
+                        app:layout_constraintTop_toBottomOf="@id/txtTitle"
                         />
 
                 </TableRow>
 
             </TableLayout>
+
+            <View
+                android:id="@+id/viewGenre"
+                android:layout_width="5dp"
+                android:layout_height="27dp"
+                android:background="@color/bluePrimary"
+                android:layout_marginTop="@dimen/dimens16"
+                app:layout_constraintStart_toStartOf="@id/tableLayout"
+                app:layout_constraintTop_toBottomOf="@id/tableLayout"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens16"
+                android:text="@string/genreList"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/viewGenre"
+                app:layout_constraintTop_toTopOf="@id/viewGenre"
+                app:layout_constraintBottom_toBottomOf="@id/viewGenre"
+                />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_marginTop="@dimen/dimens16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/viewGenre"
+                app:layout_constraintTop_toBottomOf="@+id/viewGenre"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

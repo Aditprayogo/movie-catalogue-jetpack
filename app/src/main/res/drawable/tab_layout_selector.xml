@@ -4,12 +4,12 @@
 <!--    Selected tab-->
     <item
         android:drawable="@drawable/tab_background_selected"
-        android:state_selected="true"
+        android:state_selected="false"
         />
 
     <item
-        android:drawable="@color/bluePrimary"
-        android:state_selected="false"
+        android:drawable="@drawable/tab_background"
+        android:state_selected="true"
         />
 
 </selector>
