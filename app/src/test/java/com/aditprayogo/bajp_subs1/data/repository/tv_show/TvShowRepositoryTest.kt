@@ -1,7 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
-import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth

@@ -3,5 +3,4 @@
     <dimen name="dimens16">16dp</dimen>
     <dimen name="dimens8">8dp</dimen>
     <dimen name="dimens25">25dp</dimen>
-    <dimen name="dimens4">4dp</dimen>
 </resources>

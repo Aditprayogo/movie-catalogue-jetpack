@@ -1,15 +1,10 @@
 package com.aditprayogo.bajp_subs1.ui.movie
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.data.local.Movie
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.databinding.ItemRowMovieBinding
 import com.aditprayogo.bajp_subs1.ui.detail.DetailActivity
@@ -47,24 +42,13 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             with(binding) {
 
                 imgMovie.load(data.getPosterMovieImage())
-                rattingBar.rating = (data.voteAverage?.toFloat()?.div(2)) ?: 0f
-                txtRattingBar.text = data.voteAverage?.toString()
+                rattingBar.rating = (data.voteAverage.toFloat().div(2))
+                txtRattingBar.text = data.voteAverage.toString()
                 txtTitle.text = data.title
                 txtDateOfRelease.text = data.releaseDate
 
                 with(itemView) {
                     setOnClickListener {
-
-//                        val imagePair = Pair.create<View, String>(
-//                            imgMovie,
-//                            context.getString(R.string.img_detail_movie_transition)
-//                        )
-//
-//                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                            context as Activity,
-//                            imagePair
-//                        )
-
                         context.startActivity(
                             Intent(
                                 context, DetailActivity::class.java
@@ -72,7 +56,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                                 putExtra(DetailActivity.EXTRA_MOVIE_ID, data.id.toString())
                                 putExtra(DetailActivity.TYPE, context.getString(R.string.movieType))
                             }
-//                            options.toBundle()
                         )
                     }
                 }

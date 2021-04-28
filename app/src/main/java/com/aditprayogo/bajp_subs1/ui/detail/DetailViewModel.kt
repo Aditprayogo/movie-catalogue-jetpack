@@ -8,6 +8,7 @@ import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.domain.detail.DetailUseCase
+import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,10 +56,12 @@ class DetailViewModel @Inject constructor(
      */
     fun getMovieDetailResult(id : String) {
         _state.value = LoaderState.ShowLoading
+        EspressoIdlingResource.increment()
 
         viewModelScope.launch {
             val result = detailUseCase.getDetailMovie(id)
             _state.value = LoaderState.HideLoading
+            EspressoIdlingResource.decrement()
 
             when(result) {
                 is ResultState.Success -> _movieDetailResultFromApi.postValue(result.data)
@@ -73,10 +76,12 @@ class DetailViewModel @Inject constructor(
      */
     fun getTvShowDetailResult(id : String) {
         _state.value = LoaderState.ShowLoading
+        EspressoIdlingResource.increment()
 
         viewModelScope.launch {
             val result = detailUseCase.getDetailTvShow(id)
             _state.value = LoaderState.HideLoading
+            EspressoIdlingResource.decrement()
 
             when(result) {
                 is ResultState.Success -> _tvShowDetailResultFromApi.postValue(result.data)

@@ -25,7 +25,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imgMovie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorShimmer"
@@ -63,7 +62,6 @@
             />
 
         <TextView
-            android:id="@+id/txtRattingBar"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimens16"

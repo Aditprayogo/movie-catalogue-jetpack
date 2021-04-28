@@ -30,6 +30,7 @@ ext {
     mockitoVersion = '3.6.0'
     androidCoreTestVersion = '2.1.0'
     logging_version = '3.11.0'
+    idleResourceVersion = '3.2.0'
 
     glide_version = "4.11.0"
     lottie_version = "3.4.1"

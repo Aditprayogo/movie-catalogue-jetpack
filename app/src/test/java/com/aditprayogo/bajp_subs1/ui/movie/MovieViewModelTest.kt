@@ -41,9 +41,6 @@ class MovieViewModelTest {
     @Mock
     lateinit var listMovieResponses: Observer<List<MovieResponses>>
 
-    @Mock
-    lateinit var error: Observer<String>
-
     @Captor
     lateinit var resultCaptor: ArgumentCaptor<List<MovieResponses>>
 

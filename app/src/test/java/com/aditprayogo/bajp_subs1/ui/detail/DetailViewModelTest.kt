@@ -42,9 +42,6 @@ class DetailViewModelTest {
     @Mock
     lateinit var tvDetailResponse: Observer<TvShowDetailResponse>
 
-    @Mock
-    lateinit var error: Observer<String>
-
     @Captor
     lateinit var resultMovieCaptor: ArgumentCaptor<MovieDetailResponse>
 

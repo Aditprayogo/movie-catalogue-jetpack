@@ -1,6 +1,5 @@
 package com.aditprayogo.bajp_subs1.ui.tv_show
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import com.aditprayogo.bajp_subs1.core.state.LoaderState
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowResponses
 import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
+import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,8 +52,12 @@ class TvShowViewModel @Inject constructor(
 
     fun getTvShowResultsFromApi() {
         _state.value = LoaderState.ShowLoading
+        EspressoIdlingResource.increment()
+
         viewModelScope.launch {
             val result = tvShowUseCase.getDiscoverTvShows()
+            EspressoIdlingResource.decrement()
+
             _state.value = LoaderState.HideLoading
             when(result) {
                 is ResultState.Success -> _resultTvShowsFromApi.postValue(result.data.tvShowResponses)

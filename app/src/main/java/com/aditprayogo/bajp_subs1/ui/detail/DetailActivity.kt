@@ -1,6 +1,7 @@
 package com.aditprayogo.bajp_subs1.ui.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aditprayogo.bajp_subs1.R
@@ -9,6 +10,8 @@ import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.databinding.ActivityDetailBinding
 import com.aditprayogo.bajp_subs1.utils.load
+import com.aditprayogo.bajp_subs1.utils.setGone
+import com.aditprayogo.bajp_subs1.utils.setVisible
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,6 +68,7 @@ class DetailActivity : AppCompatActivity() {
             imgDetailMovie.load(tvShowDetail.generateImageTvDetail())
             supportActionBar?.title = tvShowDetail.name
             txtDateOfRelease.text = tvShowDetail.firstAirDate
+            txtStatus.text = tvShowDetail.status
             chipGroup.apply {
                 for (genre in tvShowDetail.genres) {
                     val chip = Chip(this@DetailActivity)
@@ -84,6 +88,7 @@ class DetailActivity : AppCompatActivity() {
             imgDetailMovie.load(movieDetail.generateMoviePosterImage())
             supportActionBar?.title = movieDetail.title
             txtDateOfRelease.text = movieDetail.releaseDate
+            txtStatus.text = movieDetail.status
             chipGroup.apply {
                 for (genre in movieDetail.genres) {
                     val chip = Chip(this@DetailActivity)
@@ -98,16 +103,25 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleErrorResult(it: String?) {
+    private fun handleErrorResult(error: String?) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleLoaderState(loaderState: LoaderState) {
+        with(binding) {
+            if (loaderState is LoaderState.ShowLoading) {
+                progressBar.setVisible()
+            } else {
+                progressBar.setGone()
+            }
+        }
 
     }
 
-    private fun handleLoaderState(it: LoaderState) {
-
-    }
-
-    private fun handleNetworkError(status: Boolean?) {
-
+    private fun handleNetworkError(status: Boolean) {
+        if (status) {
+            Toast.makeText(this, "Please Retry your connection", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun fetchData() {
@@ -132,7 +146,6 @@ class DetailActivity : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-
 
     companion object {
         const val EXTRA_MOVIE_ID = "extra_movie_id"

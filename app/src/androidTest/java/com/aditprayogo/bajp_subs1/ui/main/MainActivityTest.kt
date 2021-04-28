@@ -4,14 +4,17 @@ package com.aditprayogo.bajp_subs1.ui.main
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.swipeUp
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.utils.MovieDummy
+import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
+import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 /**
@@ -19,12 +22,20 @@ import org.junit.Test
  */
 class MainActivityTest {
 
-    private val dummyMovies = MovieDummy.getMovies()
-    private val dummyTvShows = MovieDummy.getTvShow()
+    @Rule
+    @JvmField
+    var activityRule = ActivityScenarioRule(MainActivity::class.java)
+
 
     @Before
     fun setUp() {
         ActivityScenario.launch(MainActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.espressoIdlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.espressoIdlingResource)
     }
 
     @Test
@@ -32,7 +43,7 @@ class MainActivityTest {
         onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
         onView(withId(R.id.rvMovie)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyMovies.size
+                5
             )
         )
     }
@@ -50,35 +61,27 @@ class MainActivityTest {
             swipeUp()
         )
         onView(withId(R.id.txtOverview)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtOverview)).check(matches(withText(dummyMovies[0].overview)))
-
-        onView(withId(R.id.txtTitleMovie)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtTitleMovie)).check(matches(withText(dummyMovies[0].title)))
-
-        onView(withId(R.id.txtGenre)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtGenre)).check(matches(withText(dummyMovies[0].genre)))
-
         onView(withId(R.id.txtDateOfRelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtDateOfRelease)).check(matches(withText(dummyMovies[0].dateOfRealese)))
-
-        onView(withId(R.id.txtDuration)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtDuration)).check(matches(withText(dummyMovies[0].duration)))
+        onView(withId(R.id.rattingBar)).check(matches(isDisplayed()))
+        onView(withId(R.id.txtStatus)).check(matches(isDisplayed()))
+        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
+        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
     }
 
     @Test
     fun loadTvShows() {
-        onView(withText("TvShow")).perform(click())
+        onView(withId(R.id.viewPager)).perform(swipeLeft())
         onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
         onView(withId(R.id.rvTvShow)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyTvShows.size
+                5
             )
         )
     }
 
     @Test
     fun loadDetailTvShow() {
-        onView(withText("TvShow")).perform(click())
+        onView(withId(R.id.viewPager)).perform(swipeLeft())
         onView(withId(R.id.rvTvShow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
@@ -90,19 +93,12 @@ class MainActivityTest {
             swipeUp()
         )
         onView(withId(R.id.txtOverview)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtOverview)).check(matches(withText(dummyTvShows[0].overview)))
-
-        onView(withId(R.id.txtTitleMovie)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtTitleMovie)).check(matches(withText(dummyTvShows[0].title)))
-
-        onView(withId(R.id.txtGenre)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtGenre)).check(matches(withText(dummyTvShows[0].genre)))
-
         onView(withId(R.id.txtDateOfRelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtDateOfRelease)).check(matches(withText(dummyTvShows[0].dateOfRealese)))
-
-        onView(withId(R.id.txtDuration)).check(matches(isDisplayed()))
-        onView(withId(R.id.txtDuration)).check(matches(withText(dummyTvShows[0].duration)))
+        onView(withId(R.id.rattingBar)).check(matches(isDisplayed()))
+        onView(withId(R.id.txtStatus)).check(matches(isDisplayed()))
+        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
+        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
     }
+
 
 }

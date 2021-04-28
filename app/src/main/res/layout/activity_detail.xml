@@ -13,7 +13,6 @@
         android:layout_height="340dp"
         android:contentDescription="@string/image_detail_movie"
         android:scaleType="centerCrop"
-        android:transitionName="@string/img_detail_movie_transition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +81,6 @@
                 />
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimens16"
@@ -159,6 +157,33 @@
 
                 </TableRow>
 
+                <!--   Detail Of Release   -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimens8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimens8"
+                        tools:text="@string/status_tools"
+                        />
+
+                </TableRow>
+
             </TableLayout>
 
             <View
@@ -196,6 +221,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 

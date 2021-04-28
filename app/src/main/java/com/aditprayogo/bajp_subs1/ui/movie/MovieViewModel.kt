@@ -1,14 +1,13 @@
 package com.aditprayogo.bajp_subs1.ui.movie
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aditprayogo.bajp_subs1.core.state.LoaderState
 import com.aditprayogo.bajp_subs1.core.state.ResultState
-import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
+import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -54,8 +53,12 @@ class MovieViewModel @Inject constructor(
      */
     fun getDiscoverMovie() {
         _state.value = LoaderState.ShowLoading
+        EspressoIdlingResource.increment()
+
         viewModelScope.launch {
             val result = movieUseCase.getDiscoverMovie()
+            EspressoIdlingResource.decrement()
+
             _state.value = LoaderState.HideLoading
             when (result) {
                 is ResultState.Success -> _resultDiscoverMovieFromApi.postValue(result.data.movieResponses)

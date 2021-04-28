@@ -6,7 +6,6 @@ import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
@@ -30,7 +29,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `get discover movies and should return success`() = runBlocking{
+    fun `get discover movies and should return success`() = runBlocking {
         `when`(movieServices.getDiscoverMovies()).thenReturn(
             Response.success(
                 MovieDiscoverResponses(
