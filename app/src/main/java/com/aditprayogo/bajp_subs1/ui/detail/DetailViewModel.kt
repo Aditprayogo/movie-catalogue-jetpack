@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val detailUseCase: DetailUseCase
-): ViewModel() {
+): ViewModel(), DetailViewModelContract {
 
     /**
      * Loader State
@@ -54,7 +54,7 @@ class DetailViewModel @Inject constructor(
     /**
      * get movie detail
      */
-    fun getMovieDetailResult(id : String) {
+    override fun getMovieDetailResult(id : String) {
         _state.value = LoaderState.ShowLoading
         EspressoIdlingResource.increment()
 
@@ -74,7 +74,7 @@ class DetailViewModel @Inject constructor(
     /**
      * get tv show detail
      */
-    fun getTvShowDetailResult(id : String) {
+    override fun getTvShowDetailResult(id : String) {
         _state.value = LoaderState.ShowLoading
         EspressoIdlingResource.increment()
 

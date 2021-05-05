@@ -65,7 +65,6 @@ class MainActivityTest {
         onView(withId(R.id.rattingBar)).check(matches(isDisplayed()))
         onView(withId(R.id.txtStatus)).check(matches(isDisplayed()))
         onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
-        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -96,7 +95,6 @@ class MainActivityTest {
         onView(withId(R.id.txtDateOfRelease)).check(matches(isDisplayed()))
         onView(withId(R.id.rattingBar)).check(matches(isDisplayed()))
         onView(withId(R.id.txtStatus)).check(matches(isDisplayed()))
-        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
         onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
     }
 

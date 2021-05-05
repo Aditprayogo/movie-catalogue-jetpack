@@ -12,7 +12,7 @@ import com.aditprayogo.bajp_subs1.ui.tv_show.TvShowFragment
 /**
  * Created by Aditiya Prayogo.
  */
-class SectionsPagerAdapter(
+class SectionsPagerFavAdapter(
     private val context: Context,
     fm : FragmentManager
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){

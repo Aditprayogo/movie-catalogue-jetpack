@@ -7,5 +7,13 @@ import retrofit2.Response
  * Created by Aditiya Prayogo.
  */
 interface TvShowRepository {
+    /**
+     * Remote
+     */
     suspend fun getDiscoverTvShows() : Response<TvShowDiscoverResponses>
+
+    /**
+     * Local
+     */
+
 }

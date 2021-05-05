@@ -11,4 +11,8 @@ interface MovieRepository {
      * Remote
      */
     suspend fun getDiscoverMovies() : Response<MovieDiscoverResponses>
+
+    /**
+     * Local
+     */
 }

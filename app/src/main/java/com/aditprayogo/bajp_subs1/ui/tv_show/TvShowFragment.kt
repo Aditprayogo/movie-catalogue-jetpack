@@ -18,13 +18,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TvShowFragment : Fragment() {
 
-    private val binding : FragmentTvShowBinding by lazy {
+    private val binding: FragmentTvShowBinding by lazy {
         FragmentTvShowBinding.inflate(layoutInflater)
     }
 
-    private val tvShowViewModel : TvShowViewModel by viewModels()
+    private val tvShowViewModel: TvShowViewModel by viewModels()
 
-    private val tvShowAdapter : TvShowAdapter by lazy {
+    private val tvShowAdapter: TvShowAdapter by lazy {
         TvShowAdapter()
     }
 
@@ -46,7 +46,11 @@ class TvShowFragment : Fragment() {
 
     private fun initRecycerView() {
         binding.apply {
-            rvTvShow.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            rvTvShow.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             rvTvShow.adapter = tvShowAdapter
         }
     }
