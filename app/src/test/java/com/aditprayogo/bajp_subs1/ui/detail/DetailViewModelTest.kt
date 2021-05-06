@@ -5,12 +5,15 @@ import androidx.lifecycle.Observer
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
-import com.aditprayogo.bajp_subs1.domain.detail.DetailUseCase
+import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
+import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.clearInvocations
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -29,7 +32,8 @@ import org.mockito.*
 class DetailViewModelTest {
 
     private lateinit var detailViewModel: DetailViewModel
-    private val detailUseCase = Mockito.mock(DetailUseCase::class.java)
+    private val movieUseCase = Mockito.mock(MovieUseCase::class.java)
+    private val tvShowUseCase = Mockito.mock(TvShowUseCase::class.java)
 
     @get:Rule
     val instantTaskExecutor = InstantTaskExecutorRule()
@@ -53,7 +57,7 @@ class DetailViewModelTest {
         Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.initMocks(this)
 
-        detailViewModel = DetailViewModel(detailUseCase)
+        detailViewModel = DetailViewModel(movieUseCase, tvShowUseCase)
         detailViewModel.tvShowDetailResultFromApi.observeForever(tvDetailResponse)
         detailViewModel.movieDetailResultFromApi.observeForever(movieDetailResponses)
 
@@ -71,7 +75,7 @@ class DetailViewModelTest {
         val detailMovieData = DataDummyTemp.detailMovie
         val result = ResultState.Success(detailMovieData)
 
-        Mockito.`when`(detailUseCase.getDetailMovie(detailMovieData.id.toString()))
+        Mockito.`when`(movieUseCase.getDetailMovie(detailMovieData.id.toString()))
             .thenReturn(result)
 
         detailViewModel.getMovieDetailResult(detailMovieData.id.toString())
@@ -81,7 +85,7 @@ class DetailViewModelTest {
 
         assertThat(result.data).isEqualTo(resultMovieCaptor.allValues.first())
 
-        clearInvocations(detailUseCase, movieDetailResponses)
+        clearInvocations(movieUseCase, movieDetailResponses)
     }
 
     @Test
@@ -90,7 +94,7 @@ class DetailViewModelTest {
         val detailTvShowData = DataDummyTemp.detailTvShow
         val result = ResultState.Success(detailTvShowData)
 
-        Mockito.`when`(detailUseCase.getDetailTvShow(detailTvShowData.id.toString()))
+        Mockito.`when`(tvShowUseCase.getDetailTvShow(detailTvShowData.id.toString()))
             .thenReturn(result)
 
         detailViewModel.getTvShowDetailResult(detailTvShowData.id.toString())
@@ -99,7 +103,7 @@ class DetailViewModelTest {
 
         assertThat(result.data).isEqualTo(resultTvCaptor.allValues.first())
 
-        clearInvocations(detailUseCase, tvDetailResponse)
+        clearInvocations(tvShowUseCase, tvDetailResponse)
 
     }
 

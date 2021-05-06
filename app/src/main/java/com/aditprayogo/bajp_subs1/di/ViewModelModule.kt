@@ -1,9 +1,7 @@
 package com.aditprayogo.bajp_subs1.di
 
-import com.aditprayogo.bajp_subs1.data.repository.detail.DetailRepository
 import com.aditprayogo.bajp_subs1.data.repository.movie.MovieRepository
 import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepository
-import com.aditprayogo.bajp_subs1.domain.detail.DetailUseCase
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
 import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
 import dagger.Module
@@ -30,11 +28,5 @@ object ViewModelModule {
     fun provideTvShowUseCase(
         tvShowRepository: TvShowRepository
     ) : TvShowUseCase = TvShowUseCase(tvShowRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideDetailUseCase(
-        detailRepository: DetailRepository
-    ) : DetailUseCase = DetailUseCase(detailRepository)
 
 }

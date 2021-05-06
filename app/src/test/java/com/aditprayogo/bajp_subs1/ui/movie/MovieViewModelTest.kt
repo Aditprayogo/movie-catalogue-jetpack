@@ -4,6 +4,7 @@ package com.aditprayogo.bajp_subs1.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
@@ -43,6 +44,12 @@ class MovieViewModelTest {
 
     @Captor
     lateinit var resultCaptor: ArgumentCaptor<List<MovieResponses>>
+
+    @Mock
+    lateinit var movieDetailResponses: Observer<MovieDetailResponse>
+
+    @Captor
+    lateinit var resultMovieCaptor: ArgumentCaptor<MovieDetailResponse>
 
     @Before
     fun setUp() {

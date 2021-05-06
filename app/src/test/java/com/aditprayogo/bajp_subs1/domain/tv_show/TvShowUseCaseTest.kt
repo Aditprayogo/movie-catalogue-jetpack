@@ -19,6 +19,8 @@ class TvShowUseCaseTest {
     private lateinit var tvShowUseCase: TvShowUseCase
     private val tvShowRepository = mock(TvShowRepository::class.java)
 
+    private val tvShowId: String = "1"
+
     @Before
     fun setUp() {
         tvShowUseCase = TvShowUseCase(tvShowRepository)
@@ -36,6 +38,20 @@ class TvShowUseCaseTest {
         }
 
         assertThat(result).isEqualTo(original)
+    }
+
+    @Test
+    fun `get detail tv show and should return success`() {
+        val original = ResultState.Success(DataDummyTemp.detailTvShow)
+
+        val result = runBlocking {
+            Mockito.`when`(tvShowRepository.getDetailTvShow(tvShowId))
+                .thenReturn(Response.success(DataDummyTemp.detailTvShow))
+            tvShowUseCase.getDetailTvShow(tvShowId)
+        }
+
+        assertThat(result).isEqualTo(original)
+
     }
 
 }

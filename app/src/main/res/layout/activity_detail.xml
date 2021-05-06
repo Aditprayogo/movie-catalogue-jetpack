@@ -1,236 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bluePrimary"
-    tools:context=".ui.detail.DetailActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imgDetailMovie"
-        android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:contentDescription="@string/image_detail_movie"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScroll"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:background="@color/bluePrimary"
+        tools:context=".ui.detail.DetailActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/imgDetailMovie"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:contentDescription="@string/image_detail_movie"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="318dp"
-            android:background="@drawable/bg_card_detail"
-            android:paddingBottom="@dimen/dimens16"
-            android:paddingStart="@dimen/dimens16"
-            android:paddingEnd="@dimen/dimens16"
-            android:paddingTop="@dimen/dimens25">
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/viewOverview"
-                android:layout_width="5dp"
-                android:layout_height="27dp"
-                android:background="@color/bluePrimary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimens16"
-                android:text="@string/overview"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/viewOverview"
-                app:layout_constraintTop_toTopOf="@id/viewOverview"
-                app:layout_constraintBottom_toBottomOf="@id/viewOverview"
-                />
-
-            <TextView
-                android:id="@+id/txtOverview"
-                android:layout_width="0dp"
-                android:textSize="16sp"
-                tools:text="@string/text_overview"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimens16"
-                app:layout_constraintTop_toBottomOf="@id/viewOverview"
-                app:layout_constraintStart_toStartOf="@id/viewOverview"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-            <View
-                android:id="@+id/viewInformation"
-                android:layout_width="5dp"
-                android:layout_height="27dp"
-                android:background="@color/bluePrimary"
-                android:layout_marginTop="@dimen/dimens16"
-                app:layout_constraintStart_toStartOf="@id/txtOverview"
-                app:layout_constraintTop_toBottomOf="@id/txtOverview"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimens16"
-                android:text="@string/information"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/viewInformation"
-                app:layout_constraintStart_toEndOf="@id/viewInformation"
-                app:layout_constraintTop_toTopOf="@id/viewInformation" />
-
-            <TableLayout
-                android:id="@+id/tableLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimens16"
-                app:layout_constraintTop_toBottomOf="@id/viewInformation"
-                app:layout_constraintStart_toStartOf="@id/viewInformation">
+                android:layout_height="match_parent"
+                android:layout_marginTop="318dp"
+                android:background="@drawable/bg_card_detail"
+                android:paddingStart="@dimen/dimens16"
+                android:paddingTop="@dimen/dimens25"
+                android:paddingEnd="@dimen/dimens16"
+                android:paddingBottom="@dimen/dimens16">
 
-                <!--   Detail Of Release   -->
-                <TableRow
+<!--                <ImageButton-->
+<!--                    android:id="@+id/favButton"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/textView"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/textView" />-->
+
+                <View
+                    android:id="@+id/viewOverview"
+                    android:layout_width="5dp"
+                    android:layout_height="27dp"
+                    android:background="@color/bluePrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtOverviewInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimens16"
+                    android:text="@string/overview"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/viewOverview"
+                    app:layout_constraintStart_toEndOf="@id/viewOverview"
+                    app:layout_constraintTop_toTopOf="@id/viewOverview" />
+
+                <TextView
+                    android:id="@+id/txtOverview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimens16"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/viewOverview"
+                    app:layout_constraintTop_toBottomOf="@id/viewOverview"
+                    tools:text="@string/text_overview" />
+
+                <View
+                    android:id="@+id/viewInformation"
+                    android:layout_width="5dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="@dimen/dimens16"
+                    android:background="@color/bluePrimary"
+                    app:layout_constraintStart_toStartOf="@id/txtOverview"
+                    app:layout_constraintTop_toBottomOf="@id/txtOverview" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimens16"
+                    android:text="@string/information"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/viewInformation"
+                    app:layout_constraintStart_toEndOf="@id/viewInformation"
+                    app:layout_constraintTop_toTopOf="@id/viewInformation" />
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimens8">
+                    android:layout_marginTop="@dimen/dimens16"
+                    app:layout_constraintStart_toStartOf="@id/viewInformation"
+                    app:layout_constraintTop_toBottomOf="@id/viewInformation">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/date_of_release"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        />
-
-                    <TextView
-                        android:id="@+id/txtDateOfRelease"
+                    <!--   Detail Of Release   -->
+                    <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/dimens8"
-                        tools:text="@string/date_of_release_tools"
-                        />
+                        android:layout_marginBottom="@dimen/dimens8">
 
-                </TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/date_of_release"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
-                <!--   Ratting   -->
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimens8">
+                        <TextView
+                            android:id="@+id/txtDateOfRelease"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimens8"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            tools:text="@string/date_of_release_tools" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ratting :"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        />
+                    </TableRow>
 
-                    <RatingBar
-                        android:layout_marginStart="@dimen/dimens8"
-                        android:id="@+id/rattingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:progressTint="@color/bluePrimary"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:numStars="5"
-                        android:layout_marginEnd="@dimen/dimens16"
-                        android:isIndicator="true"
-                        app:layout_constraintStart_toStartOf="@id/txtTitle"
-                        app:layout_constraintTop_toBottomOf="@id/txtTitle"
-                        />
-
-                </TableRow>
-
-                <!--   Detail Of Release   -->
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimens8">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/status"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        />
-
-                    <TextView
-                        android:id="@+id/txtStatus"
+                    <!--   Ratting   -->
+                    <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/dimens8"
-                        tools:text="@string/status_tools"
-                        />
+                        android:layout_marginBottom="@dimen/dimens8">
 
-                </TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ratting :"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
-            </TableLayout>
+                        <RatingBar
+                            android:id="@+id/rattingBar"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimens8"
+                            android:layout_marginEnd="@dimen/dimens16"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/bluePrimary"
+                            app:layout_constraintStart_toStartOf="@id/txtTitle"
+                            app:layout_constraintTop_toBottomOf="@id/txtTitle" />
 
-            <View
-                android:id="@+id/viewGenre"
-                android:layout_width="5dp"
-                android:layout_height="27dp"
-                android:background="@color/bluePrimary"
-                android:layout_marginTop="@dimen/dimens16"
-                app:layout_constraintStart_toStartOf="@id/tableLayout"
-                app:layout_constraintTop_toBottomOf="@id/tableLayout"
-                />
+                    </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimens16"
-                android:text="@string/genreList"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/viewGenre"
-                app:layout_constraintTop_toTopOf="@id/viewGenre"
-                app:layout_constraintBottom_toBottomOf="@id/viewGenre"
-                />
+                    <!--   Detail Of Release   -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimens8">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_marginTop="@dimen/dimens16"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/viewGenre"
-                app:layout_constraintTop_toBottomOf="@+id/viewGenre"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/txtStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimens8"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            tools:text="@string/status_tools" />
 
-    </androidx.core.widget.NestedScrollView>
+                    </TableRow>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
+                </TableLayout>
+
+                <View
+                    android:id="@+id/viewGenre"
+                    android:layout_width="5dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="@dimen/dimens16"
+                    android:background="@color/bluePrimary"
+                    app:layout_constraintStart_toStartOf="@id/tableLayout"
+                    app:layout_constraintTop_toBottomOf="@id/tableLayout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimens16"
+                    android:text="@string/genreList"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/viewGenre"
+                    app:layout_constraintStart_toEndOf="@id/viewGenre"
+                    app:layout_constraintTop_toTopOf="@id/viewGenre" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimens16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/viewGenre"
+                    app:layout_constraintTop_toBottomOf="@+id/viewGenre" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fav_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="@dimen/dimens16"
+        android:layout_marginBottom="@dimen/dimens16"
+        android:contentDescription="@string/favButton"
+        android:src="@drawable/ic_baseline_favorite_border_24" />
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

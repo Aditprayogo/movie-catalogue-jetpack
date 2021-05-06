@@ -1,13 +1,16 @@
 package com.aditprayogo.bajp_subs1.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aditprayogo.bajp_subs1.core.state.LoaderState
 import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
-import com.aditprayogo.bajp_subs1.domain.detail.DetailUseCase
+import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
+import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
 import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,8 +21,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val detailUseCase: DetailUseCase
-): ViewModel(), DetailViewModelContract {
+    private val movieUseCase: MovieUseCase,
+    private val tvShowUseCase: TvShowUseCase
+) : ViewModel(), DetailViewModelContract {
 
     /**
      * Loader State
@@ -52,18 +56,36 @@ class DetailViewModel @Inject constructor(
     val tvShowDetailResultFromApi = _tvShowDetailResultFromApi
 
     /**
+     * Insert movie to db status
+     */
+    private val _resultInsertMovieToDb = MutableLiveData<Boolean>()
+    val resultInsertMovieToDb: LiveData<Boolean> = _resultInsertMovieToDb
+
+    /**
+     * Delete movie to db status
+     */
+    private val _resultDeleteMovieFromDb = MutableLiveData<Boolean>()
+    val resultDeleteMovieFromDb: LiveData<Boolean> = _resultDeleteMovieFromDb
+
+    /**
+     * result user from db
+     */
+    private val _resultMovieFavFromDb = MutableLiveData<List<MovieEntity>>()
+    val resultMovieFavFromDb: LiveData<List<MovieEntity>> = _resultMovieFavFromDb
+
+    /**
      * get movie detail
      */
-    override fun getMovieDetailResult(id : String) {
+    override fun getMovieDetailResult(id: String) {
         _state.value = LoaderState.ShowLoading
         EspressoIdlingResource.increment()
 
         viewModelScope.launch {
-            val result = detailUseCase.getDetailMovie(id)
+            val result = movieUseCase.getDetailMovie(id)
             _state.value = LoaderState.HideLoading
             EspressoIdlingResource.decrement()
 
-            when(result) {
+            when (result) {
                 is ResultState.Success -> _movieDetailResultFromApi.postValue(result.data)
                 is ResultState.Error -> _error.postValue(result.error)
                 is ResultState.NetworkError -> _networkError.postValue(true)
@@ -74,21 +96,63 @@ class DetailViewModel @Inject constructor(
     /**
      * get tv show detail
      */
-    override fun getTvShowDetailResult(id : String) {
+    override fun getTvShowDetailResult(id: String) {
         _state.value = LoaderState.ShowLoading
         EspressoIdlingResource.increment()
 
         viewModelScope.launch {
-            val result = detailUseCase.getDetailTvShow(id)
+            val result = tvShowUseCase.getDetailTvShow(id)
             _state.value = LoaderState.HideLoading
             EspressoIdlingResource.decrement()
 
-            when(result) {
+            when (result) {
                 is ResultState.Success -> _tvShowDetailResultFromApi.postValue(result.data)
                 is ResultState.Error -> _error.postValue(result.error)
                 is ResultState.NetworkError -> _networkError.postValue(true)
             }
         }
     }
+
+
+    /**
+     * get movie from db
+     */
+    override fun getFavMovieById(id: String) {
+        viewModelScope.launch {
+            when (val result = movieUseCase.getFavMovieById(id.toInt())) {
+                is ResultState.Success -> _resultMovieFavFromDb.postValue(result.data)
+                is ResultState.Error -> _error.postValue(result.error)
+            }
+        }
+    }
+
+    /**
+     * Insert Movie to Db
+     */
+    override fun insertMovieToDb(movieEntity: MovieEntity) {
+        viewModelScope.launch {
+            try {
+                movieUseCase.insertMovieToDb(movieEntity)
+                _resultInsertMovieToDb.postValue(true)
+            } catch (e: Exception) {
+                _error.postValue(e.localizedMessage)
+            }
+        }
+    }
+
+    /**
+     * Delete movie from db
+     */
+    override fun deleteMovieFromDb(movieEntity: MovieEntity) {
+        viewModelScope.launch {
+            try {
+                movieUseCase.deleteMovieFromDb(movieEntity)
+                _resultDeleteMovieFromDb.postValue(true)
+            } catch (e: Exception) {
+                _error.postValue(e.localizedMessage)
+            }
+        }
+    }
+
 
 }

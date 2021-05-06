@@ -1,14 +1,19 @@
 package com.aditprayogo.bajp_subs1.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aditprayogo.bajp_subs1.R
 import com.aditprayogo.bajp_subs1.core.state.LoaderState
+import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.databinding.ActivityDetailBinding
+import com.aditprayogo.bajp_subs1.ui.favorite.FavoriteActivity
 import com.aditprayogo.bajp_subs1.utils.load
 import com.aditprayogo.bajp_subs1.utils.setGone
 import com.aditprayogo.bajp_subs1.utils.setVisible
@@ -26,20 +31,85 @@ class DetailActivity : AppCompatActivity() {
     private var tvShowId: String? = null
     private var type: String? = null
 
+    private var favoriteActive = false
+
+    private var movieEntity: MovieEntity? = null
+
+    private var movieDetailResponse: MovieDetailResponse? = null
+
     private val detailViewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        initToolbar()
         handleIntentData()
         fetchData()
         initObservers()
+        initToolbar()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.favorite_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_favorite) startActivity(
+            Intent(
+                this,
+                FavoriteActivity::class.java
+            )
+        )
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun fetchData() {
+        when (type) {
+            getString(R.string.tvShowType) -> tvShowId?.let {
+                detailViewModel.getTvShowDetailResult(it)
+            }
+            getString(R.string.movieType) -> movieId?.let {
+                detailViewModel.getMovieDetailResult(it)
+                detailViewModel.getFavMovieById(it)
+            }
+        }
     }
 
     private fun initToolbar() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
+        }
+        binding.favButton.setOnClickListener {
+            setFavoriteMovie()
+        }
+    }
+
+    private fun setFavoriteMovie() {
+        if (favoriteActive) {
+            movieEntity?.let {
+                detailViewModel.deleteMovieFromDb(it)
+            }
+        } else {
+            when (type) {
+                getString(R.string.movieType) -> {
+                    val movieFavorite = movieId?.let {
+                        MovieEntity(
+                            id = it.toInt(),
+                            posterPath = movieDetailResponse?.generateMoviePosterImage(),
+                            overview = movieDetailResponse?.overview,
+                            releaseDate = movieDetailResponse?.releaseDate,
+                            status = movieDetailResponse?.status,
+                            title = movieDetailResponse?.title,
+                            voteAverage = movieDetailResponse?.voteAverage,
+                            genres = movieDetailResponse?.genres?.map { genre ->
+                                genre.name
+                            }.toString()
+                        )
+                    }
+                    movieFavorite?.let { detailViewModel.insertMovieToDb(it) }
+                }
+            }
+
         }
     }
 
@@ -60,6 +130,46 @@ class DetailActivity : AppCompatActivity() {
             tvShowDetailResultFromApi.observe(this@DetailActivity, {
                 handleTvShowResultFromApi(it)
             })
+            resultMovieFavFromDb.observe(this@DetailActivity, {
+                handleMovieFavFromDb(it)
+            })
+            resultInsertMovieToDb.observe(this@DetailActivity, {
+                if (it) {
+                    movieId?.let {
+                        detailViewModel.getFavMovieById(it)
+                    }
+                    Toast.makeText(
+                        this@DetailActivity,
+                        "Successful adding movie to db",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+            resultDeleteMovieFromDb.observe(this@DetailActivity, {
+                if (it) {
+                    movieId?.let {
+                        detailViewModel.getFavMovieById(it)
+                    }
+                    Toast.makeText(
+                        this@DetailActivity,
+                        "Successful Delete movie From db",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+        }
+    }
+
+    private fun handleMovieFavFromDb(data: List<MovieEntity>) {
+        if (data.isEmpty()) {
+            favoriteActive = false
+            val icon = R.drawable.ic_baseline_favorite_border_24
+            binding.favButton.setImageResource(icon)
+        } else {
+            movieEntity = data.first()
+            favoriteActive = true
+            val icon = R.drawable.ic_baseline_favorite_24
+            binding.favButton.setImageResource(icon)
         }
     }
 
@@ -84,6 +194,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun handleMovieResultFromApi(movieDetail: MovieDetailResponse) {
+        movieDetailResponse = movieDetail
         with(binding) {
             imgDetailMovie.load(movieDetail.generateMoviePosterImage())
             supportActionBar?.title = movieDetail.title
@@ -111,8 +222,10 @@ class DetailActivity : AppCompatActivity() {
         with(binding) {
             if (loaderState is LoaderState.ShowLoading) {
                 progressBar.setVisible()
+                favButton.setGone()
             } else {
                 progressBar.setGone()
+                favButton.setVisible()
             }
         }
 
@@ -121,17 +234,6 @@ class DetailActivity : AppCompatActivity() {
     private fun handleNetworkError(status: Boolean) {
         if (status) {
             Toast.makeText(this, "Please Retry your connection", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun fetchData() {
-        when (type) {
-            getString(R.string.tvShowType) -> tvShowId?.let {
-                detailViewModel.getTvShowDetailResult(it)
-            }
-            getString(R.string.movieType) -> movieId?.let {
-                detailViewModel.getMovieDetailResult(it)
-            }
         }
     }
 

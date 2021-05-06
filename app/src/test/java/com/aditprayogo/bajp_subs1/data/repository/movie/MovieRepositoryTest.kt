@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.repository.movie
 
+import com.aditprayogo.bajp_subs1.data.local.database.dao.MovieDao
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
@@ -20,12 +21,15 @@ class MovieRepositoryTest {
     private lateinit var movieRepository: MovieRepository
 
     private var movieServices = mock(MovieServices::class.java)
+    private var movieDao = mock(MovieDao::class.java)
 
     private val movies = DataDummyTemp.generateMovieTemp()
 
+    private val movieDetail = DataDummyTemp.detailMovie
+
     @Before
     fun setUp() {
-        movieRepository = MovieRepositoryImpl(movieServices)
+        movieRepository = MovieRepositoryImpl(movieServices, movieDao)
     }
 
     @Test
@@ -48,6 +52,23 @@ class MovieRepositoryTest {
                 page = 1,
                 movieResponses = movies
             )
+        )
+    }
+
+    @Test
+    fun `get movie detail and should return success`() = runBlocking {
+        `when`(movieServices.getDetailMovie(movieDetail.id.toString())).thenReturn(
+            Response.success(
+                movieDetail
+            )
+        )
+
+        val repository = movieRepository.getDetailMovie(movieDetail.id.toString())
+        verify(movieServices).getDetailMovie(movieDetail.id.toString())
+
+        assertThat(repository).isNotNull()
+        assertThat(repository.body()).isEqualTo(
+            movieDetail
         )
     }
 

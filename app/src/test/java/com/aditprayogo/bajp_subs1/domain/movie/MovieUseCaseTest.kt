@@ -21,6 +21,8 @@ class MovieUseCaseTest {
     private var movieRepository = mock(MovieRepository::class.java)
     private lateinit var movieUseCase: MovieUseCase
 
+    private val movieId: String = "1"
+
     @Before
     fun setUp() {
         movieUseCase = MovieUseCase(movieRepository)
@@ -38,6 +40,20 @@ class MovieUseCaseTest {
         }
 
         assertThat(result).isEqualTo(original)
+    }
+
+    @Test
+    fun `get detail movie and should return success`() {
+        val original = ResultState.Success(DataDummyTemp.detailMovie)
+
+        val result = runBlocking {
+            Mockito.`when`(movieRepository.getDetailMovie(movieId))
+                .thenReturn(Response.success(DataDummyTemp.detailMovie))
+            movieUseCase.getDetailMovie(movieId)
+        }
+
+        assertThat(result).isEqualTo(original)
+
     }
 
 }
