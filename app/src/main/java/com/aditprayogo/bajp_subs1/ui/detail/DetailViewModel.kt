@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.aditprayogo.bajp_subs1.core.state.LoaderState
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
+import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
@@ -72,6 +73,24 @@ class DetailViewModel @Inject constructor(
      */
     private val _resultMovieFavFromDb = MutableLiveData<List<MovieEntity>>()
     val resultMovieFavFromDb: LiveData<List<MovieEntity>> = _resultMovieFavFromDb
+
+    /**
+     * Insert tv show to db status
+     */
+    private val _resultInsertTvShowToDb = MutableLiveData<Boolean>()
+    val resultInsertTvShowToDb: LiveData<Boolean> = _resultInsertTvShowToDb
+
+    /**
+     * Delete tv show to db status
+     */
+    private val _resultDeleteTvShowFromDb = MutableLiveData<Boolean>()
+    val resultDeleteTvShowFromDb: LiveData<Boolean> = _resultDeleteTvShowFromDb
+
+    /**
+     * result tv show from db
+     */
+    private val _resultTvShowFavFromDb = MutableLiveData<List<TvShowEntity>>()
+    val resultTvShowFavFromDb: LiveData<List<TvShowEntity>> = _resultTvShowFavFromDb
 
     /**
      * get movie detail
@@ -149,6 +168,40 @@ class DetailViewModel @Inject constructor(
                 movieUseCase.deleteMovieFromDb(movieEntity)
                 _resultDeleteMovieFromDb.postValue(true)
             } catch (e: Exception) {
+                _error.postValue(e.localizedMessage)
+            }
+        }
+    }
+
+    /**
+     * get favorite tv show from db
+     */
+    override fun getFavTvShowById(id: String) {
+        viewModelScope.launch {
+            when (val result = tvShowUseCase.getTvShowFavById(id.toInt())) {
+                is ResultState.Success -> _resultTvShowFavFromDb.postValue(result.data)
+                is ResultState.Error -> _error.postValue(result.error)
+            }
+        }
+    }
+
+    override fun insertTvShowToDb(tvShowEntity: TvShowEntity) {
+        viewModelScope.launch {
+            try {
+                tvShowUseCase.insertTvShowToDb(tvShowEntity)
+                _resultInsertTvShowToDb.postValue(true)
+            } catch (e : Exception) {
+                _error.postValue(e.localizedMessage)
+            }
+        }
+    }
+
+    override fun deleteTvShowFromDb(tvShowEntity: TvShowEntity) {
+        viewModelScope.launch {
+            try {
+                tvShowUseCase.deleteTvShowFromDb(tvShowEntity)
+                _resultDeleteTvShowFromDb.postValue(true)
+            } catch (e : Exception) {
                 _error.postValue(e.localizedMessage)
             }
         }

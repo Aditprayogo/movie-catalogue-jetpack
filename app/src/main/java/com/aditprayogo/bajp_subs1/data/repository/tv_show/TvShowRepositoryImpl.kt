@@ -1,6 +1,7 @@
 package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
 import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
+import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
@@ -21,5 +22,21 @@ class TvShowRepositoryImpl @Inject constructor(
 
     override suspend fun getDetailTvShow(id: String): Response<TvShowDetailResponse> {
         return movieServices.getTvShowDetail(id)
+    }
+
+    override suspend fun getTvShowFavorite(): List<TvShowEntity> {
+        return tvShowDao.getAllTvShow()
+    }
+
+    override suspend fun getTvShowFavById(id: Int): List<TvShowEntity> {
+        return tvShowDao.getTvShowById(id)
+    }
+
+    override suspend fun insertTvShowToDb(tvShowEntity: TvShowEntity) {
+        return tvShowDao.insertTvShowToDb(tvShowEntity)
+    }
+
+    override suspend fun deleteTvShowFromDb(tvShowEntity: TvShowEntity) {
+        return tvShowDao.deleteTvShowFromDb(tvShowEntity)
     }
 }

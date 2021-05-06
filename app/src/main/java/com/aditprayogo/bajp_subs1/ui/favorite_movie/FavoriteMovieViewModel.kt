@@ -41,9 +41,7 @@ class FavoriteMovieViewModel @Inject constructor(
      * get discover movie
      */
     fun getMovieFavorite() {
-        EspressoIdlingResource.increment()
         viewModelScope.launch {
-            EspressoIdlingResource.decrement()
             when ( val result = movieUseCase.getMoviesFavorite()) {
                 is ResultState.Success -> _resultMovieFromDb.postValue(result.data)
                 is ResultState.Error -> _error.postValue(result.error)
