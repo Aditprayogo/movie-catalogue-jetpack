@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.domain.movie
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
@@ -40,7 +41,7 @@ class MovieUseCase @Inject constructor(private val movieRepository: MovieReposit
     /**
      * Local
      */
-    suspend fun getMoviesFavorite(): ResultState<List<MovieEntity>> {
+    suspend fun getMoviesFavorite(): ResultState<DataSource.Factory<Int, MovieEntity>> {
         return try {
             val result = movieRepository.getMoviesFavorite()
             ResultState.Success(result)

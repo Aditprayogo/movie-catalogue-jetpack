@@ -32,6 +32,7 @@ ext {
     logging_version = '3.11.0'
     idleResourceVersion = '3.2.0'
     room_version = "2.3.0"
+    paging_version = "2.1.2"
 
     glide_version = "4.11.0"
     lottie_version = "3.4.1"

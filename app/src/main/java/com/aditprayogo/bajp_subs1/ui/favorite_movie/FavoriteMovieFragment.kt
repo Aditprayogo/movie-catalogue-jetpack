@@ -16,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteMovieFragment : Fragment() {
 
-    private val movies = mutableListOf<MovieEntity>()
-
     private val binding : FragmentFavoriteMovieBinding by lazy {
         FragmentFavoriteMovieBinding.inflate(layoutInflater)
     }
@@ -51,16 +49,11 @@ class FavoriteMovieFragment : Fragment() {
 
     private fun initObservers() {
         with(favoriteMovieViewModel) {
-            resultMovieFromDb.observe(viewLifecycleOwner, {
-                handleMovieFromDb(it)
+            resultMovieFromDb.observe(viewLifecycleOwner, { movieData ->
+                favoriteMovieAdapter.submitList(movieData)
+                favoriteMovieAdapter.notifyDataSetChanged()
             })
         }
-    }
-
-    private fun handleMovieFromDb(data: List<MovieEntity>) {
-        movies.clear()
-        movies.addAll(data)
-        favoriteMovieAdapter.setFavMovies(movies)
     }
 
 }

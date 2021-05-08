@@ -1,5 +1,9 @@
 package com.aditprayogo.bajp_subs1.data.repository.movie
 
+import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.PagedList
+import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.dao.MovieDao
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
@@ -30,7 +34,7 @@ class MovieRepositoryImpl @Inject constructor(
     /**
      * Local
      */
-    override suspend fun getMoviesFavorite(): List<MovieEntity> {
+    override suspend fun getMoviesFavorite(): DataSource.Factory<Int, MovieEntity> {
         return movieDao.getAllMovies()
     }
 

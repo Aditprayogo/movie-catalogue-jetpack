@@ -1,14 +1,14 @@
 package com.aditprayogo.bajp_subs1.ui.favorite_movie
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aditprayogo.bajp_subs1.core.state.LoaderState
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
-import com.aditprayogo.bajp_subs1.data.remote.responses.MovieResponses
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
-import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,29 +21,29 @@ class FavoriteMovieViewModel @Inject constructor(
     private val movieUseCase: MovieUseCase
 ) : ViewModel() {
 
-    /**
-     * Error request
-     */
     private val _error = MutableLiveData<String?>()
     val error = _error
 
-    /**
-     * Discover movie Result
-     */
-    private val _resultMovieFromDb = MutableLiveData<List<MovieEntity>>()
-    val resultMovieFromDb = _resultMovieFromDb
+    lateinit var resultMovieFromDb: LiveData<PagedList<MovieEntity>>
 
     init {
         getMovieFavorite()
     }
 
-    /**
-     * get discover movie
-     */
     fun getMovieFavorite() {
         viewModelScope.launch {
-            when ( val result = movieUseCase.getMoviesFavorite()) {
-                is ResultState.Success -> _resultMovieFromDb.postValue(result.data)
+            val result = movieUseCase.getMoviesFavorite()
+            when (result) {
+                is ResultState.Success -> {
+                    val config = PagedList.Config.Builder().apply {
+                        setEnablePlaceholders(false)
+                        setInitialLoadSizeHint(4)
+                        setPageSize(4)
+                    }.build()
+
+                    val transformationData = LivePagedListBuilder(result.data, config).build()
+                    resultMovieFromDb = transformationData
+                }
                 is ResultState.Error -> _error.postValue(result.error)
             }
         }
