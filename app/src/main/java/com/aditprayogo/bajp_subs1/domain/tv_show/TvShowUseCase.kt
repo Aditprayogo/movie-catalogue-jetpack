@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.domain.tv_show
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
@@ -41,7 +42,7 @@ class TvShowUseCase @Inject constructor(private val tvShowRepository: TvShowRepo
     /**
      * Local
      */
-    suspend fun getTvShowFavorite() : ResultState<List<TvShowEntity>> {
+    suspend fun getTvShowFavorite() : ResultState<DataSource.Factory<Int, TvShowEntity>> {
         return try {
             val result = tvShowRepository.getTvShowFavorite()
             ResultState.Success(result)

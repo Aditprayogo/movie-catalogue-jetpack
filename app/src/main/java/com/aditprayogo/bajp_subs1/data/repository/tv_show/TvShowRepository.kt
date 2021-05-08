@@ -1,6 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
-import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
@@ -20,7 +20,7 @@ interface TvShowRepository {
     /**
      * Local
      */
-    suspend fun getTvShowFavorite() : List<TvShowEntity>
+    suspend fun getTvShowFavorite() : DataSource.Factory<Int, TvShowEntity>
 
     suspend fun getTvShowFavById(id : Int) : List<TvShowEntity>
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
@@ -32,16 +33,9 @@ class FavoriteMovieViewModel @Inject constructor(
 
     fun getMovieFavorite() {
         viewModelScope.launch {
-            val result = movieUseCase.getMoviesFavorite()
-            when (result) {
+            when (val result = movieUseCase.getMoviesFavorite()) {
                 is ResultState.Success -> {
-                    val config = PagedList.Config.Builder().apply {
-                        setEnablePlaceholders(false)
-                        setInitialLoadSizeHint(4)
-                        setPageSize(4)
-                    }.build()
-
-                    val transformationData = LivePagedListBuilder(result.data, config).build()
+                    val transformationData = result.data.toLiveData(5)
                     resultMovieFromDb = transformationData
                 }
                 is ResultState.Error -> _error.postValue(result.error)

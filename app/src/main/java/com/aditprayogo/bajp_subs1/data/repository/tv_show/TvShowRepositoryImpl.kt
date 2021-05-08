@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
@@ -24,7 +25,7 @@ class TvShowRepositoryImpl @Inject constructor(
         return movieServices.getTvShowDetail(id)
     }
 
-    override suspend fun getTvShowFavorite(): List<TvShowEntity> {
+    override suspend fun getTvShowFavorite(): DataSource.Factory<Int, TvShowEntity> {
         return tvShowDao.getAllTvShow()
     }
 

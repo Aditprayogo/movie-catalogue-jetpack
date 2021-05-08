@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
@@ -28,8 +30,7 @@ class FavoriteTvShowViewModel @Inject constructor(
     /**
      * Discover movie Result
      */
-    private val _resultTvShowFromDb = MutableLiveData<List<TvShowEntity>>()
-    val resultTvShowFromDb : LiveData<List<TvShowEntity>> = _resultTvShowFromDb
+    lateinit var resultTvShowFromDb : LiveData<PagedList<TvShowEntity>>
 
     init {
         getTvShowFavorite()
@@ -41,7 +42,10 @@ class FavoriteTvShowViewModel @Inject constructor(
     fun getTvShowFavorite() {
         viewModelScope.launch {
             when ( val result = tvShowUseCase.getTvShowFavorite()) {
-                is ResultState.Success -> _resultTvShowFromDb.postValue(result.data)
+                is ResultState.Success -> {
+                    val transformData = result.data.toLiveData(5)
+                    resultTvShowFromDb = transformData
+                }
                 is ResultState.Error -> _error.postValue(result.error)
             }
         }

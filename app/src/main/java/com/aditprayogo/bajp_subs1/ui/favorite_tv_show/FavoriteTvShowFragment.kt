@@ -19,8 +19,6 @@ class FavoriteTvShowFragment : Fragment() {
         FragmentFavoriteTvShowBinding.inflate(layoutInflater)
     }
 
-    private val tvShows = mutableListOf<TvShowEntity>()
-
     private val favoriteTvShowAdapter : FavoriteTvShowAdapter by lazy {
         FavoriteTvShowAdapter()
     }
@@ -43,16 +41,11 @@ class FavoriteTvShowFragment : Fragment() {
 
     private fun initObservers() {
         with(favoriteTvShowViewModel) {
-            resultTvShowFromDb.observe(viewLifecycleOwner, {
-                handleResultTvShowFromDb(it)
+            resultTvShowFromDb.observe(viewLifecycleOwner, { tvShowData ->
+                favoriteTvShowAdapter.submitList(tvShowData)
+                favoriteTvShowAdapter.notifyDataSetChanged()
             })
         }
-    }
-
-    private fun handleResultTvShowFromDb(data: List<TvShowEntity>) {
-        tvShows.clear()
-        tvShows.addAll(data)
-        favoriteTvShowAdapter.setTvShow(tvShows)
     }
 
     private fun initRecyclerView() {
