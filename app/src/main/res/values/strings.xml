@@ -20,4 +20,8 @@
     <string name="genreList">Genre</string>
     <string name="status">Status :</string>
     <string name="status_tools">Status</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_title">Favorite</string>
+    <string name="favButton">favButton</string>
 </resources>

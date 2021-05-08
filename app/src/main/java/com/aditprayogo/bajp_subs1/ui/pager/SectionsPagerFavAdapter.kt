@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.aditprayogo.bajp_subs1.R
+import com.aditprayogo.bajp_subs1.ui.favorite_movie.FavoriteMovieFragment
+import com.aditprayogo.bajp_subs1.ui.favorite_tv_show.FavoriteTvShowFragment
 import com.aditprayogo.bajp_subs1.ui.movie.MovieFragment
 import com.aditprayogo.bajp_subs1.ui.tv_show.TvShowFragment
 
@@ -30,8 +32,8 @@ class SectionsPagerFavAdapter(
 
     override fun getItem(position: Int): Fragment =
         when(position) {
-            0 -> MovieFragment()
-            1 -> TvShowFragment()
+            0 -> FavoriteMovieFragment()
+            1 -> FavoriteTvShowFragment()
             else -> Fragment()
         }
 
