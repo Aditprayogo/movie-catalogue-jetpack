@@ -72,4 +72,48 @@ class MovieRepositoryTest {
         )
     }
 
+    @Test
+    fun `get favorite movie from db and should return success`() = runBlocking {
+        val listFavMovies = DataDummyTemp.listFavoriteMovie
+
+        `when`(movieDao.getAllMovies()).thenReturn(listFavMovies)
+
+        val repository = movieRepository.getMoviesFavorite()
+        verify(movieDao).getAllMovies()
+
+        assertThat(repository).isNotNull()
+        assertThat(repository).isEqualTo(listFavMovies)
+    }
+
+    @Test
+    fun `get favorite movie by id and should return success`() = runBlocking {
+        val movie = DataDummyTemp.favoriteMovie
+
+        `when`(movie.id?.let { movieDao.getMovieFavById(it) }).thenReturn(listOf(movie))
+
+        val repository = movie.id?.let { movieRepository.getMovieFavById(it) }
+        movie.id?.let { verify(movieDao).getMovieFavById(it) }
+
+        assertThat(repository).isNotNull()
+        assertThat(repository).isEqualTo(listOf(movie))
+    }
+
+    @Test
+    fun `insert movie to db and should return success`() = runBlocking {
+        val movie = DataDummyTemp.favoriteMovie
+
+        val repository = movieRepository.insertMovieToDb(movie)
+        verify(movieDao).insertMovieToDb(movie)
+
+        assertThat(repository).isNotNull()
+    }
+
+    @Test
+    fun `delete movie to db and should return success`() = runBlocking {
+        val movie = DataDummyTemp.favoriteMovie
+
+        movieRepository.deleteMovieFromDb(movie)
+        verify(movieDao).deleteMovieFromDb(movie)
+    }
+
 }

@@ -8,8 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 import retrofit2.Response
 
 /**
@@ -33,7 +32,7 @@ class MovieUseCaseTest {
         val original = ResultState.Success(DataDummyTemp.discoverMovieResponses)
 
         val result = runBlocking {
-            Mockito.`when`(movieRepository.getDiscoverMovies())
+            `when`(movieRepository.getDiscoverMovies())
                 .thenReturn(Response.success(DataDummyTemp.discoverMovieResponses))
 
             movieUseCase.getDiscoverMovie()
@@ -47,12 +46,62 @@ class MovieUseCaseTest {
         val original = ResultState.Success(DataDummyTemp.detailMovie)
 
         val result = runBlocking {
-            Mockito.`when`(movieRepository.getDetailMovie(movieId))
+            `when`(movieRepository.getDetailMovie(movieId))
                 .thenReturn(Response.success(DataDummyTemp.detailMovie))
             movieUseCase.getDetailMovie(movieId)
         }
 
         assertThat(result).isEqualTo(original)
+
+    }
+
+    @Test
+    fun `get favorite movie and should return success`() {
+        val movieData = DataDummyTemp.listFavoriteMovie
+
+        val original = ResultState.Success(movieData)
+
+        val result = runBlocking {
+            `when`(movieRepository.getMoviesFavorite()).thenReturn(movieData)
+            movieUseCase.getMoviesFavorite()
+        }
+
+        assertThat(result).isEqualTo(original)
+    }
+
+    @Test
+    fun `get favorite movie by id and should return success`() {
+        val movieData = DataDummyTemp.favoriteMovie
+
+        val original = ResultState.Success(listOf(movieData))
+
+        val result = runBlocking {
+            `when`(movieData.id?.let { movieRepository.getMovieFavById(it) }).thenReturn(listOf(movieData))
+            movieData.id?.let { movieUseCase.getFavMovieById(it) }
+        }
+
+        assertThat(result).isEqualTo(original)
+    }
+
+    @Test
+    fun `insert movie to db and should return success`() {
+        val movieData =  DataDummyTemp.favoriteMovie
+
+        runBlocking {
+            movieUseCase.insertMovieToDb(movieData)
+            verify(movieRepository).insertMovieToDb(movieData)
+        }
+
+    }
+
+    @Test
+    fun `delete movie from db and should return success`() {
+        val movieData =  DataDummyTemp.favoriteMovie
+
+        runBlocking {
+            movieUseCase.deleteMovieFromDb(movieData)
+            verify(movieRepository).deleteMovieFromDb(movieData)
+        }
 
     }
 

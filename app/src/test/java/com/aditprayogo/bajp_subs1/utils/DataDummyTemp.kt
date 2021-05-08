@@ -1,11 +1,81 @@
 package com.aditprayogo.bajp_subs1.utils
 
+import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
+import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.*
 
 /**
  * Created by Aditiya Prayogo.
  */
 object DataDummyTemp {
+
+    val favoriteMovie = MovieEntity(
+        id = 1,
+        posterPath = "posterPath",
+        overview = "overview",
+        releaseDate = "releaseDate",
+        status = "status",
+        title = "title",
+        voteAverage = 2.0,
+        genres = "genres"
+    )
+
+    val favoriteTvShow = TvShowEntity(
+        id = 1,
+        posterPath = "posterPath",
+        overview = "overview",
+        firstAirDate  = "firstAirDate",
+        status = "status",
+        title = "title",
+        voteAverage = 2.0,
+        genres = "genres"
+    )
+
+    val listFavoriteMovie = listOf(
+        MovieEntity(
+            id = 1,
+            posterPath = "posterPath",
+            overview = "overview",
+            releaseDate = "releaseDate",
+            status = "status",
+            title = "title",
+            voteAverage = 2.0,
+            genres = "genres"
+        ),
+        MovieEntity(
+            id = 2,
+            posterPath = "posterPath",
+            overview = "overview",
+            releaseDate = "releaseDate",
+            status = "status",
+            title = "title",
+            voteAverage = 2.0,
+            genres = "genres"
+        )
+    )
+
+    val listFavoriteTvShow = listOf(
+        TvShowEntity(
+            id = 1,
+            posterPath = "posterPath",
+            overview = "overview",
+            firstAirDate  = "firstAirDate",
+            status = "status",
+            title = "title",
+            voteAverage = 2.0,
+            genres = "genres"
+        ),
+        TvShowEntity(
+            id = 1,
+            posterPath = "posterPath",
+            overview = "overview",
+            firstAirDate  = "firstAirDate",
+            status = "status",
+            title = "title",
+            voteAverage = 2.0,
+            genres = "genres"
+        )
+    )
 
     val discoverMovieResponses = MovieDiscoverResponses(
         page = 1,

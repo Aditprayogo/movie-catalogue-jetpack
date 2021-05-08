@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.ui.favorite_tv_show
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,7 +29,7 @@ class FavoriteTvShowViewModel @Inject constructor(
      * Discover movie Result
      */
     private val _resultTvShowFromDb = MutableLiveData<List<TvShowEntity>>()
-    val resultTvShowFromDb = _resultTvShowFromDb
+    val resultTvShowFromDb : LiveData<List<TvShowEntity>> = _resultTvShowFromDb
 
     init {
         getTvShowFavorite()

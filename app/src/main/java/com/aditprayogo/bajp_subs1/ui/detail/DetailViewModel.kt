@@ -69,7 +69,7 @@ class DetailViewModel @Inject constructor(
     val resultDeleteMovieFromDb: LiveData<Boolean> = _resultDeleteMovieFromDb
 
     /**
-     * result user from db
+     * result movie from db
      */
     private val _resultMovieFavFromDb = MutableLiveData<List<MovieEntity>>()
     val resultMovieFavFromDb: LiveData<List<MovieEntity>> = _resultMovieFavFromDb

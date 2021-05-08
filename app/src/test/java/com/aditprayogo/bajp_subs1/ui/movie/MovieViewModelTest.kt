@@ -45,12 +45,6 @@ class MovieViewModelTest {
     @Captor
     lateinit var resultCaptor: ArgumentCaptor<List<MovieResponses>>
 
-    @Mock
-    lateinit var movieDetailResponses: Observer<MovieDetailResponse>
-
-    @Captor
-    lateinit var resultMovieCaptor: ArgumentCaptor<MovieDetailResponse>
-
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
