@@ -50,6 +50,7 @@ class MainActivityTest {
 
     @Test
     fun loadDetailMovie() {
+        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
         onView(withId(R.id.rvMovie)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
@@ -81,7 +82,38 @@ class MainActivityTest {
     @Test
     fun loadDetailTvShow() {
         onView(withId(R.id.viewPager)).perform(swipeLeft())
+        onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
         onView(withId(R.id.rvTvShow)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.nestedScroll)).perform(
+            swipeUp()
+        )
+        onView(withId(R.id.imgDetailMovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.txtOverview)).check(matches(isDisplayed()))
+        onView(withId(R.id.txtDateOfRelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.rattingBar)).check(matches(isDisplayed()))
+        onView(withId(R.id.txtStatus)).check(matches(isDisplayed()))
+        onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun loadMovieDetailFavorite() {
+        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvMovie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.fav_button)).perform(click())
+        onView(isRoot()).perform(pressBack())
+
+        onView(withId(R.id.menu_favorite)).perform(click())
+        onView(withId(R.id.rvMovieFav)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click()
@@ -96,7 +128,7 @@ class MainActivityTest {
         onView(withId(R.id.rattingBar)).check(matches(isDisplayed()))
         onView(withId(R.id.txtStatus)).check(matches(isDisplayed()))
         onView(withId(R.id.chipGroup)).check(matches(isDisplayed()))
-    }
 
+    }
 
 }

@@ -1,8 +1,11 @@
 package com.aditprayogo.bajp_subs1.domain.movie
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.repository.movie.MovieRepository
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
+import com.aditprayogo.bajp_subs1.utils.PageListUtil
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -19,6 +22,8 @@ class MovieUseCaseTest {
 
     private var movieRepository = mock(MovieRepository::class.java)
     private lateinit var movieUseCase: MovieUseCase
+
+    private val movieDataRemote = DataDummyTemp.generateMovieTemp()
 
     private val movieId: String = "1"
 
@@ -57,16 +62,17 @@ class MovieUseCaseTest {
 
     @Test
     fun `get favorite movie and should return success`() {
-        val movieData = DataDummyTemp.listFavoriteMovie
+        val dataSource = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
 
-        val original = ResultState.Success(movieData)
+        `when`(movieRepository.getMoviesFavorite()).thenReturn(dataSource)
+        movieUseCase.getMoviesFavorite()
 
-        val result = runBlocking {
-            `when`(movieRepository.getMoviesFavorite()).thenReturn(movieData)
-            movieUseCase.getMoviesFavorite()
-        }
+        val movieFavEntites = ResultState.Success(PageListUtil.mockPagedList(DataDummyTemp.listFavoriteMovie))
+        verify(movieRepository).getMoviesFavorite()
 
-        assertThat(result).isEqualTo(original)
+        assertThat(movieFavEntites).isNotNull()
+        assertThat(movieDataRemote.size).isEqualTo(movieFavEntites.data.size)
+
     }
 
     @Test

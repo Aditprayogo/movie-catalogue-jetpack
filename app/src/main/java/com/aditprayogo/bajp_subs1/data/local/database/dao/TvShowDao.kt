@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.local.database.dao
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 
@@ -10,7 +11,7 @@ import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 interface TvShowDao {
 
     @Query("SELECT * FROM tvShow")
-    suspend fun getAllTvShow() : List<TvShowEntity>
+    fun getAllTvShow() : DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM tvShow WHERE id =:id")
     suspend fun getTvShowById(id : Int) : List<TvShowEntity>

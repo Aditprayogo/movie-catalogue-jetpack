@@ -1,10 +1,9 @@
 package com.aditprayogo.bajp_subs1.ui.favorite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.aditprayogo.bajp_subs1.R
 import com.aditprayogo.bajp_subs1.databinding.ActivityFavoriteBinding
-import com.aditprayogo.bajp_subs1.ui.pager.SectionsPagerAdapter
 import com.aditprayogo.bajp_subs1.ui.pager.SectionsPagerFavAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +36,7 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun setupViewAdapter() {
         val sectionAdapter = SectionsPagerFavAdapter(this, supportFragmentManager)
-        binding.viewPager.adapter = sectionAdapter
-        binding.tabs.setupWithViewPager(binding.viewPager)
+        binding.viewPagerFavorite.adapter = sectionAdapter
+        binding.tabs.setupWithViewPager(binding.viewPagerFavorite)
     }
 }

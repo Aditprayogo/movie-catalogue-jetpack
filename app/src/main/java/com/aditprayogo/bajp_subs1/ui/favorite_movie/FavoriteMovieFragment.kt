@@ -1,22 +1,18 @@
 package com.aditprayogo.bajp_subs1.ui.favorite_movie
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.databinding.FragmentFavoriteMovieBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class FavoriteMovieFragment : Fragment() {
-
-    private val movies = mutableListOf<MovieEntity>()
 
     private val binding : FragmentFavoriteMovieBinding by lazy {
         FragmentFavoriteMovieBinding.inflate(layoutInflater)
@@ -49,18 +45,21 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun onResume() {
+        super.onResume()
         with(favoriteMovieViewModel) {
-            resultMovieFromDb.observe(viewLifecycleOwner, {
-                handleMovieFromDb(it)
+            getFavoriteMovies().observe(viewLifecycleOwner, { movieData ->
+                favoriteMovieAdapter.submitList(movieData)
             })
         }
     }
 
-    private fun handleMovieFromDb(data: List<MovieEntity>) {
-        movies.clear()
-        movies.addAll(data)
-        favoriteMovieAdapter.setFavMovies(movies)
+    private fun initObservers() {
+        with(favoriteMovieViewModel) {
+            getFavoriteMovies().observe(viewLifecycleOwner, { movieData ->
+                favoriteMovieAdapter.submitList(movieData)
+            })
+        }
     }
 
 }

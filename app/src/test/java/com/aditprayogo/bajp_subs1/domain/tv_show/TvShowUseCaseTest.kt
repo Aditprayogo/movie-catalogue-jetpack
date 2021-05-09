@@ -1,13 +1,15 @@
 package com.aditprayogo.bajp_subs1.domain.tv_show
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepository
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
+import com.aditprayogo.bajp_subs1.utils.PageListUtil
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import retrofit2.Response
 
@@ -18,6 +20,8 @@ class TvShowUseCaseTest {
 
     private lateinit var tvShowUseCase: TvShowUseCase
     private val tvShowRepository = mock(TvShowRepository::class.java)
+
+    private val tvShowDataRemote = DataDummyTemp.generateTvShowsTemp()
 
     private val tvShowId: String = "1"
 
@@ -61,21 +65,16 @@ class TvShowUseCaseTest {
 
     @Test
     fun `get all favorite tv show from db and should return success`() {
-        val tvShowData = DataDummyTemp.listFavoriteTvShow
+        val dataSource = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
 
-        val original = ResultState.Success(tvShowData)
+        `when`(tvShowRepository.getTvShowFavorite()).thenReturn(dataSource)
+        tvShowUseCase.getTvShowFavorite()
 
-        val result = runBlocking {
-            `when`(
-                tvShowRepository.getTvShowFavorite()
-            ).thenReturn(
-                tvShowData
-            )
+        val tvShowFavEntities = ResultState.Success(PageListUtil.mockPagedList(DataDummyTemp.listFavoriteTvShow))
+        verify(tvShowRepository).getTvShowFavorite()
 
-            tvShowUseCase.getTvShowFavorite()
-        }
-
-        assertThat(result).isEqualTo(original)
+        assertThat(tvShowFavEntities).isNotNull()
+        assertThat(tvShowDataRemote.size).isEqualTo(tvShowFavEntities.data.size)
     }
 
     @Test

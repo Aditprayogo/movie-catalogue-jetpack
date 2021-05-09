@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.local.database.dao
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 
@@ -10,7 +11,7 @@ import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 interface MovieDao {
 
     @Query("SELECT * FROM movies")
-    suspend fun getAllMovies() : List<MovieEntity>
+    fun getAllMovies() : DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movies WHERE id =:id")
     suspend fun getMovieFavById(id : Int) : List<MovieEntity>

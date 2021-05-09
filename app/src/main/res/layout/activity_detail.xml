@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:contentDescription="@string/image_detail_movie"
+            android:src="@drawable/image"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,15 +39,6 @@
                 android:paddingTop="@dimen/dimens25"
                 android:paddingEnd="@dimen/dimens16"
                 android:paddingBottom="@dimen/dimens16">
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/favButton"-->
-<!--                    android:layout_width="50dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/textView"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/textView"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/textView" />-->
 
                 <View
                     android:id="@+id/viewOverview"

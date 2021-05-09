@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.repository.movie
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
@@ -19,7 +20,7 @@ interface MovieRepository {
     /**
      * Local
      */
-    suspend fun getMoviesFavorite() : List<MovieEntity>
+    fun getMoviesFavorite() : DataSource.Factory<Int, MovieEntity>
 
     suspend fun getMovieFavById(id : Int) : List<MovieEntity>
 

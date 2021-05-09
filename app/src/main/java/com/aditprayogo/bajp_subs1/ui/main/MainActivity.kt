@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val binding : ActivityMainBinding by lazy {
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -37,7 +37,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_favorite) startActivity(Intent(this, FavoriteActivity::class.java))
+        if (item.itemId == R.id.menu_favorite) startActivity(
+            Intent(
+                this,
+                FavoriteActivity::class.java
+            )
+        )
         return super.onOptionsItemSelected(item)
     }
 

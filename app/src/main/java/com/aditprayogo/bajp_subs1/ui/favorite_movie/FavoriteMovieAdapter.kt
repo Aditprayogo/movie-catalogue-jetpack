@@ -2,21 +2,15 @@ package com.aditprayogo.bajp_subs1.ui.favorite_movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.databinding.ItemRowMovieBinding
 
 /**
  * Created by Aditiya Prayogo.
  */
-class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieViewHolder>() {
-
-    private var movies = mutableListOf<MovieEntity>()
-
-    fun setFavMovies(data : MutableList<MovieEntity>) {
-        this.movies = data
-        notifyDataSetChanged()
-    }
+class FavoriteMovieAdapter : PagedListAdapter<MovieEntity, FavoriteMovieViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieViewHolder {
         val itemRowMovieBinding =
@@ -25,8 +19,20 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: FavoriteMovieViewHolder, position: Int) {
-        holder.bind(movies[position])
+        val movie = getItem(position)
+        movie?.let { holder.bind(it) }
     }
 
-    override fun getItemCount(): Int = movies.size
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 }

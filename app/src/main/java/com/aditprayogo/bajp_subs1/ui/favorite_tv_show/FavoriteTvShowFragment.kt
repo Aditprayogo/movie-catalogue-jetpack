@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.databinding.FragmentFavoriteTvShowBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,8 +17,6 @@ class FavoriteTvShowFragment : Fragment() {
     private val binding : FragmentFavoriteTvShowBinding by lazy {
         FragmentFavoriteTvShowBinding.inflate(layoutInflater)
     }
-
-    private val tvShows = mutableListOf<TvShowEntity>()
 
     private val favoriteTvShowAdapter : FavoriteTvShowAdapter by lazy {
         FavoriteTvShowAdapter()
@@ -43,16 +40,21 @@ class FavoriteTvShowFragment : Fragment() {
 
     private fun initObservers() {
         with(favoriteTvShowViewModel) {
-            resultTvShowFromDb.observe(viewLifecycleOwner, {
-                handleResultTvShowFromDb(it)
+            getTvShowFavorite().observe(viewLifecycleOwner, { tvShowData ->
+                favoriteTvShowAdapter.submitList(tvShowData)
+                favoriteTvShowAdapter.notifyDataSetChanged()
             })
         }
     }
 
-    private fun handleResultTvShowFromDb(data: List<TvShowEntity>) {
-        tvShows.clear()
-        tvShows.addAll(data)
-        favoriteTvShowAdapter.setTvShow(tvShows)
+    override fun onResume() {
+        super.onResume()
+        with(favoriteTvShowViewModel) {
+            getTvShowFavorite().observe(viewLifecycleOwner, { tvShowData ->
+                favoriteTvShowAdapter.submitList(tvShowData)
+                favoriteTvShowAdapter.notifyDataSetChanged()
+            })
+        }
     }
 
     private fun initRecyclerView() {

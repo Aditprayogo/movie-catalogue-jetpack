@@ -1,18 +1,17 @@
 package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import retrofit2.Response
 
@@ -78,7 +77,7 @@ class TvShowRepositoryTest {
 
     @Test
     fun `get all tv show favorite and should return success`() = runBlocking {
-        val tvShowData = DataDummyTemp.listFavoriteTvShow
+        val tvShowData = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
 
         `when`(tvShowDao.getAllTvShow()).thenReturn(tvShowData)
 
