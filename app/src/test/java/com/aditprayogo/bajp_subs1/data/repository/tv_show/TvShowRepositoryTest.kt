@@ -1,5 +1,6 @@
 package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
@@ -78,7 +79,7 @@ class TvShowRepositoryTest {
 
     @Test
     fun `get all tv show favorite and should return success`() = runBlocking {
-        val tvShowData = DataDummyTemp.listFavoriteTvShow
+        val tvShowData = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
 
         `when`(tvShowDao.getAllTvShow()).thenReturn(tvShowData)
 

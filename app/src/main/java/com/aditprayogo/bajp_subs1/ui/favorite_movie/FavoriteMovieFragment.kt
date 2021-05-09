@@ -47,11 +47,19 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        with(favoriteMovieViewModel) {
+            getFavoriteMovies().observe(viewLifecycleOwner, { movieData ->
+                favoriteMovieAdapter.submitList(movieData)
+            })
+        }
+    }
+
     private fun initObservers() {
         with(favoriteMovieViewModel) {
-            resultMovieFromDb.observe(viewLifecycleOwner, { movieData ->
+            getFavoriteMovies().observe(viewLifecycleOwner, { movieData ->
                 favoriteMovieAdapter.submitList(movieData)
-                favoriteMovieAdapter.notifyDataSetChanged()
             })
         }
     }

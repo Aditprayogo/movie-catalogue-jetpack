@@ -1,11 +1,14 @@
 package com.aditprayogo.bajp_subs1.ui.favorite_tv_show
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.DataSource
+import androidx.paging.PagedList
 import com.aditprayogo.bajp_subs1.core.state.ResultState
+import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
-import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,8 +42,8 @@ class FavoriteTvShowViewModelTest {
     @Mock
     lateinit var tvShowList : Observer<List<TvShowEntity>>
 
-    @Captor
-    lateinit var tvShowListArgumentCaptor : ArgumentCaptor<List<TvShowEntity>>
+    @Mock
+    lateinit var pagedList: PagedList<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -48,7 +51,6 @@ class FavoriteTvShowViewModelTest {
         MockitoAnnotations.initMocks(this)
 
         favoriteTvShowViewModel = FavoriteTvShowViewModel(tvShowUseCase)
-        favoriteTvShowViewModel.resultTvShowFromDb.observeForever(tvShowList)
     }
 
     @After
@@ -58,17 +60,23 @@ class FavoriteTvShowViewModelTest {
     }
 
     @Test
-    fun `get tv show favorite from db and should return success`() = runBlockingTest {
-        val tvShowData = DataDummyTemp.listFavoriteTvShow
-        val result = ResultState.Success(tvShowData)
+    fun `get tv show favorite from db and should return success`()  {
+        val dummyTvShow = pagedList
+        Mockito.`when`(dummyTvShow.size).thenReturn(5)
 
-        Mockito.`when`(tvShowUseCase.getTvShowFavorite()).thenReturn(result)
+        val tvShows = MutableLiveData<PagedList<TvShowEntity>>()
+        tvShows.value = dummyTvShow
 
-        favoriteTvShowViewModel.getTvShowFavorite()
+        Mockito.`when`(tvShowUseCase.getTvShowFavorite()).thenReturn(tvShows)
+        val tvShow = favoriteTvShowViewModel.getTvShowFavorite().value
 
-        Mockito.verify(tvShowList, Mockito.atLeastOnce()).onChanged(tvShowListArgumentCaptor.capture())
-        Truth.assertThat(result.data).isEqualTo(tvShowListArgumentCaptor.allValues.first())
-        Mockito.clearInvocations(tvShowUseCase, tvShowList)
+        Mockito.verify(tvShowUseCase).getTvShowFavorite()
+
+        Truth.assertThat(tvShow).isNotNull()
+        Truth.assertThat(tvShow?.size).isEqualTo(5)
+
+        favoriteTvShowViewModel.getTvShowFavorite().observeForever(tvShowList)
+        Mockito.verify(tvShowList).onChanged(dummyTvShow)
     }
 
 }

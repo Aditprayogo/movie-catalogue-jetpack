@@ -1,9 +1,12 @@
 package com.aditprayogo.bajp_subs1.data.repository.movie
 
+import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.dao.MovieDao
+import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
+import com.aditprayogo.bajp_subs1.utils.PageListUtil
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -74,7 +77,7 @@ class MovieRepositoryTest {
 
     @Test
     fun `get favorite movie from db and should return success`() = runBlocking {
-        val listFavMovies = DataDummyTemp.listFavoriteMovie
+        val listFavMovies = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
 
         `when`(movieDao.getAllMovies()).thenReturn(listFavMovies)
 

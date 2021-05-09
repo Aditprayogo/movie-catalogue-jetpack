@@ -20,7 +20,7 @@ interface TvShowRepository {
     /**
      * Local
      */
-    suspend fun getTvShowFavorite() : DataSource.Factory<Int, TvShowEntity>
+    fun getTvShowFavorite() : DataSource.Factory<Int, TvShowEntity>
 
     suspend fun getTvShowFavById(id : Int) : List<TvShowEntity>
 

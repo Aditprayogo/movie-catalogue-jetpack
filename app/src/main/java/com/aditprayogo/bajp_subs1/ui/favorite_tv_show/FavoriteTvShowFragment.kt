@@ -41,7 +41,17 @@ class FavoriteTvShowFragment : Fragment() {
 
     private fun initObservers() {
         with(favoriteTvShowViewModel) {
-            resultTvShowFromDb.observe(viewLifecycleOwner, { tvShowData ->
+            getTvShowFavorite().observe(viewLifecycleOwner, { tvShowData ->
+                favoriteTvShowAdapter.submitList(tvShowData)
+                favoriteTvShowAdapter.notifyDataSetChanged()
+            })
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        with(favoriteTvShowViewModel) {
+            getTvShowFavorite().observe(viewLifecycleOwner, { tvShowData ->
                 favoriteTvShowAdapter.submitList(tvShowData)
                 favoriteTvShowAdapter.notifyDataSetChanged()
             })

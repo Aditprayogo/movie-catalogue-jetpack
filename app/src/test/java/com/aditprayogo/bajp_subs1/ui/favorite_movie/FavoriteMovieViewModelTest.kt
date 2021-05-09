@@ -1,11 +1,13 @@
 package com.aditprayogo.bajp_subs1.ui.favorite_movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.DataSource
+import androidx.paging.PagedList
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.domain.movie.MovieUseCase
-import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,10 +42,10 @@ class FavoriteMovieViewModelTest {
     private val testDispatcher = TestCoroutineDispatcher()
 
     @Mock
-    lateinit var movieList : Observer<List<MovieEntity>>
+    private lateinit var movieList : Observer<PagedList<MovieEntity>>
 
-    @Captor
-    lateinit var movieListArgumentCaptor : ArgumentCaptor<List<MovieEntity>>
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -51,7 +53,6 @@ class FavoriteMovieViewModelTest {
         MockitoAnnotations.initMocks(this)
 
         favoriteMovieViewModel = FavoriteMovieViewModel(movieUseCase)
-        favoriteMovieViewModel.resultMovieFromDb.observeForever(movieList)
     }
 
     @After
@@ -61,17 +62,23 @@ class FavoriteMovieViewModelTest {
     }
 
     @Test
-    fun `get movie favorite from db and should return success`() = runBlockingTest {
-        val moviesData = DataDummyTemp.listFavoriteMovie
-        val result = ResultState.Success(moviesData)
+    fun `get movie favorite from db and should return success1`() {
+        val dummyMovie = pagedList
+        `when`(dummyMovie.size).thenReturn(5)
 
-        `when`(movieUseCase.getMoviesFavorite()).thenReturn(result)
+        val movies = MutableLiveData<PagedList<MovieEntity>>()
+        movies.value = dummyMovie
 
-        favoriteMovieViewModel.getMovieFavorite()
+        `when`(movieUseCase.getMoviesFavorite()).thenReturn(movies)
+        val movie = favoriteMovieViewModel.getFavoriteMovies().value
 
-        verify(movieList, atLeastOnce()).onChanged(movieListArgumentCaptor.capture())
-        assertThat(result.data).isEqualTo(movieListArgumentCaptor.allValues.first())
-        clearInvocations(movieUseCase, movieList)
+        verify(movieUseCase).getMoviesFavorite()
+
+        assertThat(movie).isNotNull()
+        assertThat(movie?.size).isEqualTo(5)
+
+        favoriteMovieViewModel.getFavoriteMovies().observeForever(movieList)
+        verify(movieList).onChanged(dummyMovie)
     }
 
 }

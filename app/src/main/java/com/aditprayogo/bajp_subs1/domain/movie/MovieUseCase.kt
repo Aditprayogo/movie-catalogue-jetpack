@@ -1,6 +1,9 @@
 package com.aditprayogo.bajp_subs1.domain.movie
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.aditprayogo.bajp_subs1.core.state.ResultState
 import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDetailResponse
@@ -41,13 +44,14 @@ class MovieUseCase @Inject constructor(private val movieRepository: MovieReposit
     /**
      * Local
      */
-    suspend fun getMoviesFavorite(): ResultState<DataSource.Factory<Int, MovieEntity>> {
-        return try {
-            val result = movieRepository.getMoviesFavorite()
-            ResultState.Success(result)
-        } catch (e: Exception) {
-            ResultState.Error(e.localizedMessage, 500)
-        }
+    fun getMoviesFavorite(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+
+        return LivePagedListBuilder(movieRepository.getMoviesFavorite(), config).build()
     }
 
     suspend fun getFavMovieById(id: Int): ResultState<List<MovieEntity>> {

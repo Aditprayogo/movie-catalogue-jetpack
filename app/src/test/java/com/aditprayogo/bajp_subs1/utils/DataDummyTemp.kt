@@ -74,6 +74,16 @@ object DataDummyTemp {
             title = "title",
             voteAverage = 2.0,
             genres = "genres"
+        ),
+        TvShowEntity(
+            id = 1,
+            posterPath = "posterPath",
+            overview = "overview",
+            firstAirDate  = "firstAirDate",
+            status = "status",
+            title = "title",
+            voteAverage = 2.0,
+            genres = "genres"
         )
     )
 
@@ -131,14 +141,6 @@ object DataDummyTemp {
             ),
             MovieResponses(
                 id = 2,
-                title = "movieTitle",
-                voteAverage = 0.0,
-                releaseDate = "releaseDate",
-                overview = "overView",
-                backdropPath = "backdropPath"
-            ),
-            MovieResponses(
-                id = 3,
                 title = "movieTitle",
                 voteAverage = 0.0,
                 releaseDate = "releaseDate",

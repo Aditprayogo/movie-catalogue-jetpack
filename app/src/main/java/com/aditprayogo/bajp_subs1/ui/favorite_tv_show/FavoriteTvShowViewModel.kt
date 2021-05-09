@@ -27,28 +27,6 @@ class FavoriteTvShowViewModel @Inject constructor(
     private val _error = MutableLiveData<String?>()
     val error = _error
 
-    /**
-     * Discover movie Result
-     */
-    lateinit var resultTvShowFromDb : LiveData<PagedList<TvShowEntity>>
-
-    init {
-        getTvShowFavorite()
-    }
-
-    /**
-     * get discover movie
-     */
-    fun getTvShowFavorite() {
-        viewModelScope.launch {
-            when ( val result = tvShowUseCase.getTvShowFavorite()) {
-                is ResultState.Success -> {
-                    val transformData = result.data.toLiveData(5)
-                    resultTvShowFromDb = transformData
-                }
-                is ResultState.Error -> _error.postValue(result.error)
-            }
-        }
-    }
+    fun getTvShowFavorite() = tvShowUseCase.getTvShowFavorite()
 
 }

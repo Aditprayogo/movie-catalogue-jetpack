@@ -34,7 +34,7 @@ class MovieRepositoryImpl @Inject constructor(
     /**
      * Local
      */
-    override suspend fun getMoviesFavorite(): DataSource.Factory<Int, MovieEntity> {
+    override fun getMoviesFavorite(): DataSource.Factory<Int, MovieEntity> {
         return movieDao.getAllMovies()
     }
 

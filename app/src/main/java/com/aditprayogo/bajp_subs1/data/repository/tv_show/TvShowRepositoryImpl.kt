@@ -25,7 +25,7 @@ class TvShowRepositoryImpl @Inject constructor(
         return movieServices.getTvShowDetail(id)
     }
 
-    override suspend fun getTvShowFavorite(): DataSource.Factory<Int, TvShowEntity> {
+    override fun getTvShowFavorite(): DataSource.Factory<Int, TvShowEntity> {
         return tvShowDao.getAllTvShow()
     }
 

@@ -23,7 +23,7 @@ interface MovieRepository {
     /**
      * Local
      */
-    suspend fun getMoviesFavorite() : DataSource.Factory<Int, MovieEntity>
+    fun getMoviesFavorite() : DataSource.Factory<Int, MovieEntity>
 
     suspend fun getMovieFavById(id : Int) : List<MovieEntity>
 
