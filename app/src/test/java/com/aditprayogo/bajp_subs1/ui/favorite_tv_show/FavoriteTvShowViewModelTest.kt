@@ -3,10 +3,7 @@ package com.aditprayogo.bajp_subs1.ui.favorite_tv_show
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.paging.DataSource
 import androidx.paging.PagedList
-import com.aditprayogo.bajp_subs1.core.state.ResultState
-import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowUseCase
 import com.google.common.truth.Truth
@@ -15,14 +12,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.*
+import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.mock
+import org.mockito.MockitoAnnotations
 
 /**
  * Created by Aditiya Prayogo.

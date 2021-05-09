@@ -6,14 +6,12 @@ import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import retrofit2.Response
 

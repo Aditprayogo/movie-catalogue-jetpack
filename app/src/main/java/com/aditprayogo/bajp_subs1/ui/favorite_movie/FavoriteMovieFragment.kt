@@ -1,14 +1,12 @@
 package com.aditprayogo.bajp_subs1.ui.favorite_movie
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aditprayogo.bajp_subs1.R
-import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.databinding.FragmentFavoriteMovieBinding
 import dagger.hilt.android.AndroidEntryPoint
 

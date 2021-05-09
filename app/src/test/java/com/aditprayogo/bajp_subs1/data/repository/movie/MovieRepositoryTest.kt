@@ -6,7 +6,6 @@ import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.MovieDiscoverResponses
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
-import com.aditprayogo.bajp_subs1.utils.PageListUtil
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking

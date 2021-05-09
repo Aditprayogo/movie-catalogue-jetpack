@@ -2,7 +2,6 @@ package com.aditprayogo.bajp_subs1.domain.tv_show
 
 import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.core.state.ResultState
-import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepository
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
@@ -11,7 +10,6 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import retrofit2.Response
 

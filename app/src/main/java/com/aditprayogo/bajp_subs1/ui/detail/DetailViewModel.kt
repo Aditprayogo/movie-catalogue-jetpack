@@ -138,7 +138,10 @@ class DetailViewModel @Inject constructor(
      */
     override fun getFavMovieById(id: String) {
         viewModelScope.launch {
-            when (val result = movieUseCase.getFavMovieById(id.toInt())) {
+            EspressoIdlingResource.increment()
+            val result = movieUseCase.getFavMovieById(id.toInt())
+            EspressoIdlingResource.decrement()
+            when (result) {
                 is ResultState.Success -> _resultMovieFavFromDb.postValue(result.data)
                 is ResultState.Error -> _error.postValue(result.error)
             }
@@ -178,7 +181,10 @@ class DetailViewModel @Inject constructor(
      */
     override fun getFavTvShowById(id: String) {
         viewModelScope.launch {
-            when (val result = tvShowUseCase.getTvShowFavById(id.toInt())) {
+            EspressoIdlingResource.increment()
+            val result = tvShowUseCase.getTvShowFavById(id.toInt())
+            EspressoIdlingResource.decrement()
+            when (result) {
                 is ResultState.Success -> _resultTvShowFavFromDb.postValue(result.data)
                 is ResultState.Error -> _error.postValue(result.error)
             }

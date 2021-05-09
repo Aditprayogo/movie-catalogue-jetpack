@@ -8,8 +8,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.aditprayogo.bajp_subs1.R
 import com.aditprayogo.bajp_subs1.ui.favorite_movie.FavoriteMovieFragment
 import com.aditprayogo.bajp_subs1.ui.favorite_tv_show.FavoriteTvShowFragment
-import com.aditprayogo.bajp_subs1.ui.movie.MovieFragment
-import com.aditprayogo.bajp_subs1.ui.tv_show.TvShowFragment
 
 /**
  * Created by Aditiya Prayogo.

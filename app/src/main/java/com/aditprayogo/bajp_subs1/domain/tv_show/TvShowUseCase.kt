@@ -1,15 +1,14 @@
 package com.aditprayogo.bajp_subs1.domain.tv_show
 
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.aditprayogo.bajp_subs1.core.state.ResultState
-import com.aditprayogo.bajp_subs1.data.local.database.entity.MovieEntity
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
 import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepository
+import com.aditprayogo.bajp_subs1.utils.EspressoIdlingResource
 import com.aditprayogo.bajp_subs1.utils.safeApiCall
 import javax.inject.Inject
 
@@ -22,22 +21,28 @@ class TvShowUseCase @Inject constructor(private val tvShowRepository: TvShowRepo
      */
     suspend fun getDiscoverTvShows(): ResultState<TvShowDiscoverResponses> {
         return safeApiCall {
+            EspressoIdlingResource.increment()
             val response = tvShowRepository.getDiscoverTvShows()
             try {
                 ResultState.Success(response.body()!!)
             } catch (e: Exception) {
                 ResultState.Error(e.localizedMessage, response.code())
+            } finally {
+                EspressoIdlingResource.decrement()
             }
         }
     }
 
     suspend fun getDetailTvShow(id : String) : ResultState<TvShowDetailResponse> {
         return safeApiCall {
+            EspressoIdlingResource.increment()
             val response = tvShowRepository.getDetailTvShow(id)
             try {
                 ResultState.Success(response.body()!!)
             } catch (e : java.lang.Exception) {
                 ResultState.Error(e.localizedMessage, response.code())
+            } finally {
+                EspressoIdlingResource.decrement()
             }
         }
     }

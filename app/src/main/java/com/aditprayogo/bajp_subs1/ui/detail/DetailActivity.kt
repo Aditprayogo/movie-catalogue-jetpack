@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aditprayogo.bajp_subs1.R
@@ -172,22 +171,22 @@ class DetailActivity : AppCompatActivity() {
 
     private fun handleDeleteTvShowFromDb(status: Boolean) {
         if (status) tvShowId?.let { detailViewModel.getFavTvShowById(it) }
-        toast("Successful UnFavorite Tv Serries")
+        toast(getString(R.string.unfavoriteTvSeriesInfo))
     }
 
     private fun handleInsertTvShowToDb(status: Boolean) {
         if (status) tvShowId?.let { detailViewModel.getFavTvShowById(it) }
-        toast("Successful added to favorite")
+        toast(getString(R.string.successfulAdded))
     }
 
     private fun handleDeleteMovieFromDb(status: Boolean) {
         if (status) movieId?.let { detailViewModel.getFavMovieById(it) }
-        toast("Successful UnFavorite Movie")
+        toast(getString(R.string.unfavoriteMovieInfo))
     }
 
     private fun handleRInsertMovieToDb(status: Boolean) {
         if (status) movieId?.let { detailViewModel.getFavMovieById(it) }
-        toast("Successful added to favorite")
+        toast(getString(R.string.successfulAdded))
     }
 
     private fun handleResultTvShowFavorite(data: List<TvShowEntity>) {
@@ -268,10 +267,8 @@ class DetailActivity : AppCompatActivity() {
         with(binding) {
             if (loaderState is LoaderState.ShowLoading) {
                 progressBar.setVisible()
-                favButton.setGone()
             } else {
                 progressBar.setGone()
-                favButton.setVisible()
             }
         }
 
