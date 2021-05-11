@@ -8,9 +8,9 @@ import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.RetrofitMovieConfig
 import com.aditprayogo.bajp_subs1.data.repository.movie.MovieRepository
-import com.aditprayogo.bajp_subs1.data.repository.movie.MovieRepositoryImpl
+import com.aditprayogo.bajp_subs1.domain.movie.MovieRepositoryImpl
 import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepository
-import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepositoryImpl
+import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowRepositoryImpl
 import com.aditprayogo.bajp_subs1.utils.Constant
 import dagger.Module
 import dagger.Provides

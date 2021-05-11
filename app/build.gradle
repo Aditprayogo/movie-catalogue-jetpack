@@ -18,7 +18,7 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-        buildConfigField "String", "API_KEY", "\"YOUR TMDB API\""
+        buildConfigField "String", "API_KEY", "\"YOUR TMDB API KEY\""
         buildConfigField "String", "POSTER_SIZE_URL", "\"https://image.tmdb.org/t/p/w500\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

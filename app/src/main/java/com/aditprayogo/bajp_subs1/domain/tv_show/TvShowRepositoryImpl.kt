@@ -1,4 +1,4 @@
-package com.aditprayogo.bajp_subs1.data.repository.tv_show
+package com.aditprayogo.bajp_subs1.domain.tv_show
 
 import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
@@ -6,6 +6,7 @@ import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDetailResponse
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
+import com.aditprayogo.bajp_subs1.data.repository.tv_show.TvShowRepository
 import retrofit2.Response
 import javax.inject.Inject
 
