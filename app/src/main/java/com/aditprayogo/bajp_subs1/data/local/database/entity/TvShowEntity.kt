@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 /**
  * Created by Aditiya Prayogo.
  */
-@Parcelize
+
 @Entity(tableName = "tvShow")
 data class TvShowEntity(
     @PrimaryKey
@@ -30,4 +30,4 @@ data class TvShowEntity(
     @ColumnInfo(name = "voteAverage") val voteAverage: Double?,
 
     @ColumnInfo(name = "genres") val genres: String?,
-) : Parcelable
+)

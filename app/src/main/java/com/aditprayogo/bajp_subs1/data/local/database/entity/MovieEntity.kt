@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 /**
  * Created by Aditiya Prayogo.
  */
-@Parcelize
+
 @Entity(tableName = "movies")
 data class MovieEntity(
     @PrimaryKey
@@ -31,4 +31,4 @@ data class MovieEntity(
 
     @ColumnInfo(name = "genres") val genres: String?,
 
-) : Parcelable
+)
