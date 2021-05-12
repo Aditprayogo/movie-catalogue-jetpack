@@ -1,3 +1,6 @@
+## About
+This is Movie Catalogue Application using some Jetpack Libraries
+
 ## How to Use This App :
 Generate your token from https://www.themoviedb.org/ and put it in **build.gradle**
 ```kotlin

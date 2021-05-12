@@ -1,4 +1,4 @@
-package com.aditprayogo.bajp_subs1.domain.tv_show
+package com.aditprayogo.bajp_subs1.data.repository.tv_show
 
 import androidx.paging.DataSource
 import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao

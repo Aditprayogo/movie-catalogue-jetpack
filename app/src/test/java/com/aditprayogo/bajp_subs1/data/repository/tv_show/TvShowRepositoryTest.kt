@@ -5,7 +5,6 @@ import com.aditprayogo.bajp_subs1.data.local.database.dao.TvShowDao
 import com.aditprayogo.bajp_subs1.data.local.database.entity.TvShowEntity
 import com.aditprayogo.bajp_subs1.data.remote.MovieServices
 import com.aditprayogo.bajp_subs1.data.remote.responses.TvShowDiscoverResponses
-import com.aditprayogo.bajp_subs1.domain.tv_show.TvShowRepositoryImpl
 import com.aditprayogo.bajp_subs1.utils.DataDummyTemp
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
