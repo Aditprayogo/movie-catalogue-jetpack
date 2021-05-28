@@ -114,6 +114,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
 
+
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
 }
