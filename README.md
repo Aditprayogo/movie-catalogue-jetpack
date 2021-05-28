@@ -1,3 +1,6 @@
+
+[![Aditprayogo](https://circleci.com/gh/Aditprayogo/movie-catalogue-jetpack.svg?style=svg)](https://circleci.com/gh/Aditprayogo/movie-catalogue-jetpack)
+
 ## About
 This is Movie Catalogue Application using some Jetpack Libraries
 
